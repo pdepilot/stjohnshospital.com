@@ -1,0 +1,1714 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <title>About Us | ST. JOHN'S HOSPITAL</title>
+    <style>
+      /* ===== INHERIT FULL DESIGN SYSTEM ===== */
+      /* (same root, structure, components as index – preserved) */
+      :root {
+        --primary: #0a2647;
+        --primary-light: #144272;
+        --secondary: #2c7be5;
+        --accent: #00b4d8;
+        --accent-soft: #9be7ff;
+        --gold: #c6a43c;
+        --gold-light: #f5e7b2;
+        --dark: #0b1c2f;
+        --darker: #07111e;
+        --light: #ffffff;
+        --light-bg: #f8fafc;
+        --glass: rgba(255, 255, 255, 0.2);
+        --glass-border: rgba(255, 255, 255, 0.15);
+        --glass-shadow: rgba(31, 38, 135, 0.1);
+        --text-dark: #1e293b;
+        --text-light: #f1f5f9;
+        --gradient-blue: linear-gradient(
+          145deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        --gradient-gold: linear-gradient(145deg, #c6a43c, #e6c873);
+        --gradient-accent: linear-gradient(
+          145deg,
+          var(--secondary),
+          var(--accent)
+        );
+        --shadow-sm: 0 10px 30px -10px rgba(2, 48, 71, 0.08);
+        --shadow-md: 0 20px 40px -15px rgba(2, 48, 71, 0.12);
+        --shadow-lg: 0 30px 60px -15px rgba(2, 48, 71, 0.15);
+        --shadow-gold: 0 15px 35px -10px rgba(198, 164, 60, 0.15);
+        --border-radius-sm: 12px;
+        --border-radius-md: 18px;
+        --border-radius-lg: 24px;
+        --border-radius-xl: 32px;
+        --border-radius-full: 999px;
+        --header-height: 100px;
+        --header-height-scroll: 70px;
+        --progress: 0;
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-gentle: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-dark);
+        background-color: var(--light-bg);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      /* reveal system */
+      .reveal-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .reveal-section.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+
+      /* scroll progress (copied, same as index) */
+      .progress-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        z-index: 9997;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-gentle);
+      }
+      .progress-container.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      .progress-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+      }
+      .progress-ring:hover {
+        transform: scale(1.05);
+      }
+      .progress-ring-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: conic-gradient(
+          var(--gold) calc(var(--progress) * 1deg),
+          #e2e8f0 0deg
+        );
+        mask: radial-gradient(transparent 55%, black 56%);
+        -webkit-mask: radial-gradient(transparent 55%, black 56%);
+      }
+      .progress-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .progress-content i {
+        font-size: 16px;
+        margin-bottom: 2px;
+      }
+
+      /* navbar identical to index – smart scroll */
+      .main-header {
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        width: 100%;
+        transition: var(--transition-smooth);
+      }
+      .main-header.scrolled {
+        background: rgba(10, 38, 71, 0.95);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-lg);
+      }
+      .main-header.scrolled .nav-wrapper {
+        padding: 10px 40px;
+      }
+      .main-header.scrolled .logo img {
+        height: 50px;
+      }
+      .main-header.scrolled .logo-text h1 {
+        color: white;
+      }
+      .main-header.scrolled .nav-links ul li a:not(.btn-primary) {
+        color: var(--text-light);
+      }
+      .topbar {
+        background: var(--darker);
+        color: var(--text-light);
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .topbar-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+      .top-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .top-left span {
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent-soft);
+      }
+      .emergency-badge {
+        background: rgba(198, 164, 60, 0.15);
+        padding: 6px 14px;
+        border-radius: var(--border-radius-full);
+        border: 1px solid rgba(198, 164, 60, 0.3);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--gold-light);
+      }
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .top-right span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+      .top-right i {
+        color: var(--gold);
+      }
+      .social-icons-mini {
+        display: flex;
+        gap: 15px;
+      }
+      .social-icons-mini a {
+        color: var(--text-light);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+      .social-icons-mini a:hover {
+        opacity: 1;
+        color: var(--gold);
+        transform: translateY(-2px);
+      }
+
+      .navbar {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .nav-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        transition: padding 0.3s ease;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-decoration: none;
+      }
+      .logo img {
+        height: 70px;
+        width: auto;
+        transition: height 0.3s ease;
+      }
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+      }
+      .logo-text h1 {
+        font-size: 1.5rem;
+        color: var(--primary);
+        line-height: 1.2;
+        transition: color 0.3s ease;
+      }
+      .logo-text span {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* mobile menu – same robust system */
+      #check {
+        display: none;
+      }
+      .menu-toggle {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: var(--primary);
+        transition: color 0.3s ease;
+        z-index: 10000;
+      }
+      .main-header.scrolled .menu-toggle {
+        color: white;
+      }
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 9997;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      @media (max-width: 992px) {
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 300px;
+          height: 100vh;
+          background: rgba(10, 38, 71, 0.98);
+          backdrop-filter: blur(16px);
+          box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+          transition: right 0.3s ease;
+          z-index: 9998;
+          padding: 100px 30px 40px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        #check:checked ~ .nav-links {
+          right: 0;
+        }
+        #check:checked ~ .nav-overlay {
+          display: block;
+          opacity: 1;
+          visibility: visible;
+        }
+        .nav-links ul {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          gap: 28px;
+          width: 100%;
+        }
+        .nav-links ul li a {
+          text-decoration: none;
+          color: white !important;
+          font-weight: 600;
+          font-size: 1.1rem;
+          display: inline-block;
+          width: 100%;
+        }
+        .nav-links ul li a::after {
+          content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--gradient-gold);
+          transition: width 0.3s ease;
+          border-radius: var(--border-radius-full);
+        }
+        .nav-links ul li a:hover::after,
+        .nav-links ul li a.active::after {
+          width: 40px;
+        }
+        .nav-links ul li a:hover,
+        .nav-links ul li a.active {
+          color: var(--gold-light) !important;
+        }
+        .nav-links ul li a.btn-primary {
+          background: var(--gradient-gold);
+          color: var(--darker) !important;
+          padding: 14px 28px !important;
+          border-radius: var(--border-radius-full);
+          width: auto;
+          text-align: center;
+        }
+        .nav-links ul li a.btn-primary::after {
+          display: none;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+      @media (min-width: 993px) {
+        .nav-links {
+          position: static;
+          right: auto;
+          width: auto;
+          height: auto;
+          background: transparent;
+          backdrop-filter: none;
+          box-shadow: none;
+          padding: 0;
+          overflow-y: visible;
+        }
+        .nav-links ul {
+          flex-direction: row;
+          align-items: center;
+          gap: 35px;
+        }
+        .nav-links ul li a {
+          color: var(--text-dark);
+          font-size: 0.95rem;
+        }
+        .main-header.scrolled .nav-links ul li a:not(.btn-primary) {
+          color: var(--text-light);
+        }
+      }
+      .nav-links ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        gap: 35px;
+      }
+      .nav-links ul li a {
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+        letter-spacing: 0.3px;
+      }
+      .nav-links ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--gradient-gold);
+        transition: width 0.3s ease;
+        border-radius: var(--border-radius-full);
+      }
+      .nav-links ul li a:hover::after,
+      .nav-links ul li a.active::after {
+        width: 70%;
+      }
+      .btn-primary {
+        background: var(--gradient-blue);
+        color: white !important;
+        padding: 12px 28px !important;
+        border-radius: var(--border-radius-full);
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease !important;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        background: var(--gradient-accent);
+      }
+      .btn-primary::after {
+        display: none !important;
+      }
+
+      /* ===== ABOUT PAGE SPECIFIC – PREMIUM, CONSISTENT ===== */
+      /* Distinct hero – shorter, mission-oriented, FIXED BACKGROUND */
+      .about-hero {
+        position: relative;
+        height: 55vh;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        background:
+          linear-gradient(95deg, rgba(10, 38, 71, 0.92), rgba(7, 17, 30, 0.8)),
+          url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center 30%;
+        background-attachment: fixed; 
+        margin-top: 0;
+        isolation: isolate;
+      }
+      .about-hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        color: white;
+        position: relative;
+        z-index: 5;
+        width: 100%;
+      }
+      .about-hero-sub {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: block;
+      }
+      .about-hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        font-family: "Playfair Display", serif;
+        max-width: 900px;
+      }
+      .about-hero-desc {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        max-width: 650px;
+        font-weight: 300;
+        margin-bottom: 15px;
+      }
+
+      /* ----- FIXED: WHO WE ARE SECTION – PROPER MARGINS & PADDING ----- */
+      .who-section {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 100px 40px; 
+      }
+      .two-column-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+        align-items: center;
+      }
+      .who-image {
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        height: 100%;
+        max-height: 520px;
+      }
+      .who-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        display: block;
+      }
+      .who-image:hover img {
+        transform: scale(1.02);
+      }
+      .who-text {
+        padding-right: 20px; /* ADDED INTERNAL SPACING */
+      }
+      .who-text h2 {
+        font-size: 2.8rem;
+        color: var(--primary);
+        margin-bottom: 25px;
+      }
+      .accent-line {
+        width: 80px;
+        height: 4px;
+        background: var(--gradient-gold);
+        margin-bottom: 30px;
+        border-radius: var(--border-radius-full);
+      }
+      .who-text p {
+        color: #475569;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+        line-height: 1.7;
+      }
+
+      /* mission vision values - glass cards premium */
+      .mvv-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 30px;
+      }
+      .mvv-card {
+        background: white;
+        padding: 45px 35px;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        position: relative;
+        backdrop-filter: blur(4px);
+      }
+      .mvv-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--gold-light);
+      }
+      .mvv-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-blue);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        color: white;
+        font-size: 2.2rem;
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease;
+      }
+      .mvv-card:hover .mvv-icon {
+        transform: scale(1.05);
+        background: var(--gradient-gold);
+        color: var(--darker);
+      }
+      .mvv-card h3 {
+        font-size: 1.8rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+      .mvv-card p {
+        color: #475569;
+        line-height: 1.7;
+      }
+      .mvv-card ul {
+        list-style: none;
+        margin-top: 15px;
+      }
+      .mvv-card li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        color: #334155;
+      }
+      .mvv-card li i {
+        color: var(--gold);
+        font-size: 0.9rem;
+      }
+
+      /* why choose us credibility strip – enterprise counters */
+      .credibility-about {
+        background: linear-gradient(145deg, #f1f5f9, #ffffff);
+        padding: 70px 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      }
+      .credibility-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+      }
+      .cred-card {
+        background: white;
+        padding: 35px 25px;
+        border-radius: var(--border-radius-md);
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+      }
+      .cred-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+      .cred-icon {
+        width: 70px;
+        height: 70px;
+        background: rgba(44, 123, 229, 0.1);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 2rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+      }
+      .cred-card:hover .cred-icon {
+        background: var(--gradient-blue);
+        color: white;
+      }
+      .cred-number {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--primary);
+        font-family: "Playfair Display", serif;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .cred-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 8px;
+      }
+      .cred-desc {
+        font-size: 0.9rem;
+        color: #64748b;
+      }
+
+      /* team preview – corporate, trustworthy */
+      .team-preview {
+        padding: 100px 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .team-mini-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 50px;
+      }
+      .doctor-card {
+        background: white;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+      }
+      .doctor-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+      }
+      .doctor-image {
+        height: 320px;
+        overflow: hidden;
+        position: relative;
+      }
+      .doctor-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .doctor-card:hover .doctor-image img {
+        transform: scale(1.05);
+      }
+      .doctor-info {
+        padding: 25px;
+        text-align: center;
+      }
+      .doctor-info h3 {
+        font-size: 1.4rem;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+      .doctor-info p {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      /* trust badges strip – enterprise */
+      .trust-strip-about {
+        background: white;
+        padding: 50px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .trust-strip-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .trust-item-simple {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 8px 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: var(--border-radius-full);
+        box-shadow: var(--shadow-sm);
+      }
+      .trust-item-simple i {
+        font-size: 1.6rem;
+        color: var(--primary);
+      }
+      .trust-text-about {
+        display: flex;
+        flex-direction: column;
+      }
+      .trust-text-about strong {
+        font-size: 1rem;
+        color: var(--primary);
+      }
+      .trust-text-about span {
+        font-size: 0.85rem;
+        color: #64748b;
+      }
+
+      /* ===== CTA SECTION – ADDED FIXED BACKGROUND + NO DISTORTION ===== */
+      .cta-about {
+        position: relative;
+        background:
+          linear-gradient(95deg, rgba(10, 38, 71, 0.92), rgba(7, 17, 30, 0.85)),
+          url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center 40%;
+        background-attachment: fixed; 
+        padding: 100px 40px;
+        text-align: center;
+        color: white;
+        isolation: isolate;
+      }
+      .cta-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 5;
+      }
+      .cta-inner h2 {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 20px;
+      }
+      .cta-inner p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 35px;
+      }
+      .btn-cta-gold {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        padding: 18px 52px;
+        border-radius: var(--border-radius-full);
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-gold);
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-cta-gold:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 45px -10px rgba(198, 164, 60, 0.5);
+      }
+
+      /* footer (identical to index – copy exactly to preserve system) */
+      .footer {
+        position: relative;
+        padding: 80px 40px 40px;
+        background: linear-gradient(145deg, #0b1e2b, #0a1820);
+        color: white;
+        overflow: hidden;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            circle at 20% 50%,
+            rgba(198, 164, 60, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(44, 123, 229, 0.03) 0%,
+            transparent 50%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.02) 0px,
+            rgba(255, 255, 255, 0.02) 1px,
+            transparent 1px,
+            transparent 10px
+          );
+        pointer-events: none;
+      }
+      .footer-glass-container {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .footer-glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-xl);
+        padding: 60px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        margin-bottom: 40px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 40px;
+      }
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .footer-logo img {
+        height: 60px;
+        filter: brightness(0) invert(1);
+      }
+      .footer-logo-text h2 {
+        font-size: 1.8rem;
+        color: white;
+      }
+      .footer-description {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+      }
+      .accreditation-badges {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 16px;
+        border-radius: var(--border-radius-full);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge i {
+        color: var(--gold);
+      }
+      .footer-heading {
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        position: relative;
+      }
+      .footer-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--gradient-gold);
+        border-radius: var(--border-radius-full);
+      }
+      .footer-links {
+        list-style: none;
+      }
+      .footer-links li {
+        margin-bottom: 15px;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+      .footer-links a:hover {
+        color: var(--gold);
+        transform: translateX(5px);
+      }
+      .footer-links i {
+        font-size: 0.8rem;
+        color: var(--gold);
+      }
+      .contact-info {
+        list-style: none;
+      }
+      .contact-info li {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .contact-info i {
+        color: var(--gold);
+        font-size: 1.1rem;
+        margin-top: 3px;
+      }
+      .footer-social {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .footer-social a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none;
+      }
+      .footer-social a:hover {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        transform: translateY(-5px) rotate(360deg);
+        border-color: transparent;
+      }
+      .footer-bottom-glass {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-full);
+        padding: 25px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .copyright {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+      .footer-bottom-links {
+        display: flex;
+        gap: 30px;
+      }
+      .footer-bottom-links a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+      .footer-bottom-links a:hover {
+        color: var(--gold);
+      }
+      .developer-credit {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+      .developer-credit span {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      @media (max-width: 1200px) {
+        .two-column-layout {
+          grid-template-columns: 1fr;
+          gap: 50px;
+        }
+        .who-text {
+          padding-right: 0;
+        }
+        .mvv-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .credibility-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .team-mini-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .about-hero-title {
+          font-size: 2.8rem;
+        }
+        .about-hero {
+          background-attachment: scroll;
+        } /* disable fixed on mobile for performance */
+        .cta-about {
+          background-attachment: scroll;
+        }
+        .who-section {
+          padding: 70px 30px;
+        }
+        .two-column-layout {
+          gap: 40px;
+        }
+        .mvv-grid {
+          grid-template-columns: 1fr;
+        }
+        .credibility-grid {
+          grid-template-columns: 1fr;
+        }
+        .team-mini-grid {
+          grid-template-columns: 1fr;
+        }
+        .trust-strip-container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom-glass {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+        }
+      }
+      @media (max-width: 480px) {
+        .about-hero-title {
+          font-size: 2.2rem;
+        }
+        .about-hero {
+          min-height: 380px;
+        }
+        .who-section {
+          padding: 60px 25px;
+        }
+      }
+      .active-about {
+        color: var(--primary) !important;
+        font-weight: 700;
+      }
+      .main-header.scrolled .active-about {
+        color: white !important;
+      }
+      .nav-links ul li a.active-about::after {
+        width: 70%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== SAME TOPBAR ===== -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="top-left">
+          <span>JCI ACCREDITED</span>
+          <span class="emergency-badge"
+            ><i class="fas fa-shield-alt"></i> LEVEL 1 TRAUMA CENTER</span
+          >
+        </div>
+        <div class="top-right">
+          <span><i class="fas fa-envelope"></i> concierge@stjohns.health</span>
+          <span><i class="fas fa-phone-alt"></i> +1 (800) 567-8900</span>
+          <div class="social-icons-mini">
+            <a href="#" aria-label="Facebook"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" aria-label="Twitter"
+              ><i class="fab fa-x-twitter"></i
+            ></a>
+            <a href="#" aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" aria-label="LinkedIn"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== IDENTICAL HEADER (ACTIVE STATE SET TO ABOUT) ===== -->
+    <header class="main-header" id="mainHeader">
+      <nav class="navbar">
+        <div class="nav-wrapper">
+          <input type="checkbox" id="check" />
+          <div
+            class="nav-overlay"
+            onclick="document.getElementById('check').checked = false"
+          ></div>
+
+          <label for="check" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+          </label>
+
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="img/waver-removebg-preview.png"
+                alt="St. John's Hospital Logo"
+              />
+              <div class="logo-text">
+                <!-- intentional empty, same as index -->
+              </div>
+            </a>
+          </div>
+
+          <div class="nav-links">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a class="active-about" href="about.html">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#doctors">Doctors</a></li>
+              <li><a href="#research">Research</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#" class="btn-primary">Patient Portal</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ===== SCROLL PROGRESS (IDENTICAL) ===== -->
+    <div
+      class="progress-container"
+      id="progressContainer"
+      onclick="scrollToTop()"
+    >
+      <div class="progress-ring">
+        <div class="progress-ring-circle" id="progressRing"></div>
+        <div class="progress-content">
+          <i class="fas fa-arrow-up"></i>
+          <span id="progressPercentage">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 1. DISTINCT HERO – SHORTER, MISSION FOCUS, FIXED BG ===== -->
+    <section class="about-hero reveal-section">
+      <div class="about-hero-content">
+        <span class="about-hero-sub">SINCE 1998</span>
+        <h1 class="about-hero-title">Compassion, science & legacy</h1>
+        <p class="about-hero-desc">
+          St. John’s exists to deliver world-class, human‑centered care — where
+          medical excellence meets unwavering empathy.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 2. WHO WE ARE – TWO COLUMN – REPAIRED MARGIN/PADDING ===== -->
+    <section class="who-section reveal-section" id="who">
+      <div class="two-column-layout">
+        <div class="who-text">
+          <span class="section-tag" style="color: var(--gold)">WHO WE ARE</span>
+          <h2>More than a hospital, a healing community</h2>
+          <div class="accent-line"></div>
+          <p>
+            For over two decades, St. John’s Medical Center has redefined
+            academic medicine. We combine pioneering research with deeply
+            personal attention. Our 900+ beds, 100+ specialties and 4,500
+            medical professionals work in unison to treat every patient as
+            family.
+          </p>
+          <p>
+            As a non‑profit teaching hospital, we train the next generation of
+            physicians while delivering today’s most advanced therapies — from
+            robotic surgery to immunotherapy. Our patient‑first philosophy is
+            embedded in every decision.
+          </p>
+          <div
+            class="security-badge"
+            style="margin-top: 30px; background: rgba(44, 123, 229, 0.03)"
+          >
+            <i class="fas fa-hand-holding-heart" style="color: var(--gold)"></i>
+            <span
+              ><strong>4,800+ babies delivered</strong> · 150,000+ lives touched
+              annually</span
+            >
+          </div>
+        </div>
+        <div class="who-image">
+          <img
+            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+            alt="Healing environment"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. MISSION, VISION, VALUES – PREMIUM CARDS ===== -->
+    <section class="credibility-about" style="background: white">
+      <div style="max-width: 1400px; margin: 0 auto">
+        <div class="section-header reveal-section">
+          <span class="section-tag">OUR COMPASS</span>
+          <h2>Mission, Vision & Values</h2>
+          <p>
+            Principles that guide every consultation, surgery and breakthrough
+          </p>
+        </div>
+        <div class="mvv-grid reveal-section">
+          <div class="mvv-card">
+            <div class="mvv-icon"><i class="fas fa-heart"></i></div>
+            <h3>Mission</h3>
+            <p>
+              To provide compassionate, high‑quality care regardless of
+              background; advance medical science; and train future leaders in
+              health.
+            </p>
+          </div>
+          <div class="mvv-card">
+            <div class="mvv-icon"><i class="fas fa-eye"></i></div>
+            <h3>Vision</h3>
+            <p>
+              To be the global benchmark for integrated, ethical healthcare —
+              where innovation serves humanity with dignity.
+            </p>
+          </div>
+          <div class="mvv-card">
+            <div class="mvv-icon"><i class="fas fa-gem"></i></div>
+            <h3>Core Values</h3>
+            <ul>
+              <li>
+                <i class="fas fa-check-circle"></i> Excellence without exception
+              </li>
+              <li>
+                <i class="fas fa-check-circle"></i> Empathy in every interaction
+              </li>
+              <li><i class="fas fa-check-circle"></i> Integrity above all</li>
+              <li>
+                <i class="fas fa-check-circle"></i> Collaboration across
+                disciplines
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. WHY CHOOSE US – CREDIBILITY STRIP (COUNTERS/AUTHORITY) ===== -->
+    <section
+      class="credibility-about"
+      style="background: linear-gradient(145deg, #f8fafc, #ffffff)"
+    >
+      <div class="credibility-grid">
+        <div class="cred-card reveal-section reveal-delay-1">
+          <div class="cred-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="cred-number">25+</div>
+          <div class="cred-label">Years of excellence</div>
+          <div class="cred-desc">Founded 1998 · JCI accredited since 2003</div>
+        </div>
+        <div class="cred-card reveal-section reveal-delay-2">
+          <div class="cred-icon"><i class="fas fa-user-md"></i></div>
+          <div class="cred-number">180+</div>
+          <div class="cred-label">Certified specialists</div>
+          <div class="cred-desc">
+            Leaders in 52 medical and surgical subspecialties
+          </div>
+        </div>
+        <div class="cred-card reveal-section reveal-delay-3">
+          <div class="cred-icon"><i class="fas fa-microscope"></i></div>
+          <div class="cred-number">4</div>
+          <div class="cred-label">Da Vinci XI robots</div>
+          <div class="cred-desc">Minimally invasive · faster recovery</div>
+        </div>
+        <div class="cred-card reveal-section reveal-delay-1">
+          <div class="cred-icon"><i class="fas fa-clock"></i></div>
+          <div class="cred-number">24/7</div>
+          <div class="cred-label">Trauma ready</div>
+          <div class="cred-desc">Level 1 center · < 15 min wait</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. OUR TEAM PREVIEW – CORPORATE, TRUSTWORTHY ===== -->
+    <section class="team-preview reveal-section">
+      <div class="section-header">
+        <span class="section-tag">DISTINGUISHED PHYSICIANS</span>
+        <h2>Leading medical minds</h2>
+        <p>
+          Board‑certified, fellowship‑trained, and dedicated entirely to you
+        </p>
+      </div>
+      <div class="team-mini-grid">
+        <div class="doctor-card">
+          <div class="doctor-image">
+            <img
+              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Dr. Sarah Chen"
+            />
+          </div>
+          <div class="doctor-info">
+            <h3>Dr. Sarah Chen</h3>
+            <p>Chief of Cardiology</p>
+          </div>
+        </div>
+        <div class="doctor-card">
+          <div class="doctor-image">
+            <img
+              src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Dr. Michael Roberts"
+            />
+          </div>
+          <div class="doctor-info">
+            <h3>Dr. Michael Roberts</h3>
+            <p>Director of Neurosurgery</p>
+          </div>
+        </div>
+        <div class="doctor-card">
+          <div class="doctor-image">
+            <img
+              src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Dr. Elena Rodriguez"
+            />
+          </div>
+          <div class="doctor-info">
+            <h3>Dr. Elena Rodriguez</h3>
+            <p>Chief of Oncology</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 45px">
+        <a
+          href="#doctors"
+          style="
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--primary);
+            padding: 14px 42px;
+            border-radius: var(--border-radius-full);
+            font-weight: 600;
+            transition: 0.3s;
+            text-decoration: none;
+          "
+          >Meet all 180+ specialists
+          <i class="fas fa-arrow-right" style="margin-left: 8px"></i
+        ></a>
+      </div>
+    </section>
+
+    <!-- ===== 6. TRUST BADGES / CERTIFICATIONS – VISUAL STRIP ===== -->
+    <div class="trust-strip-about reveal-section">
+      <div class="trust-strip-container">
+        <div class="trust-item-simple">
+          <i class="fas fa-shield-alt"></i>
+          <div class="trust-text-about">
+            <strong>JCI Accredited</strong>
+            <span>Global gold standard</span>
+          </div>
+        </div>
+        <div class="trust-item-simple">
+          <i class="fas fa-lock"></i>
+          <div class="trust-text-about">
+            <strong>HIPAA compliant</strong>
+            <span>256‑bit encryption</span>
+          </div>
+        </div>
+        <div class="trust-item-simple">
+          <i class="fas fa-certificate"></i>
+          <div class="trust-text-about">
+            <strong>MAGNET recognized</strong>
+            <span>Nursing excellence</span>
+          </div>
+        </div>
+        <div class="trust-item-simple">
+          <i class="fas fa-ambulance"></i>
+          <div class="trust-text-about">
+            <strong>Level 1 trauma</strong>
+            <span>Ready 24/7/365</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7. STRONG CALL TO ACTION – FIXED BACKGROUND IMAGE ADDED ===== -->
+    <section class="cta-about reveal-section">
+      <div class="cta-inner">
+        <h2>Experience care that listens</h2>
+        <p>
+          Schedule a consultation with a specialist or request a second opinion
+          — often within 48 hours.
+        </p>
+        <a href="#" class="btn-cta-gold">📅 Book an appointment</a>
+        <div style="margin-top: 30px">
+          <span style="color: rgba(255, 255, 255, 0.8)"
+            ><i
+              class="fas fa-phone-alt"
+              style="color: var(--gold); margin-right: 10px"
+            ></i>
+            Concierge: +1 (800) 567-8900</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER – EXACT COPY FROM INDEX ===== -->
+    <footer id="contact" class="footer reveal-section">
+      <div class="footer-glass-container">
+        <div class="footer-glass-panel">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="footer-logo">
+                <img src="./img/waver-removebg-preview.png" alt="St. John's" />
+                <div class="footer-logo-text"></div>
+              </div>
+              <p class="footer-description">
+                Setting the global standard for healthcare excellence since
+                1998. JCI-accredited, multi-specialty academic medical center
+                serving patients from over 80 countries.
+              </p>
+              <div class="accreditation-badges">
+                <span class="badge"
+                  ><i class="fas fa-check-circle"></i> JCI</span
+                >
+                <span class="badge"
+                  ><i class="fas fa-check-circle"></i> MAGNET</span
+                >
+                <span class="badge"
+                  ><i class="fas fa-check-circle"></i> ISO 9001</span
+                >
+              </div>
+              <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <div>
+              <h3 class="footer-heading">For Patients</h3>
+              <ul class="footer-links">
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Appointments</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Patient Portal</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Medical Records</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Insurance & Billing</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Visitor Information</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> International
+                    Services</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-heading">Centers of Excellence</h3>
+              <ul class="footer-links">
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Cardiovascular
+                    Institute</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Cancer Center</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Neuroscience
+                    Institute</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Orthopedics & Sports
+                    Medicine</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Women's Health</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-chevron-right"></i> Transplant
+                    Institute</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-heading">Concierge</h3>
+              <ul class="contact-info">
+                <li>
+                  <i class="fas fa-map-marker-alt"></i> 250 Medical Center
+                  Drive<br />Boston, MA 02114
+                </li>
+                <li>
+                  <i class="fas fa-phone-alt"></i> 24/7 Helpline: +1 (800)
+                  567-8900
+                </li>
+                <li>
+                  <i class="fas fa-envelope"></i> concierge@stjohns.health
+                </li>
+                <li>
+                  <i class="fas fa-clock"></i> Mon-Fri: 8AM - 8PM<br />Sat-Sun:
+                  9AM - 5PM
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-glass">
+          <div class="copyright">
+            <i class="far fa-copyright"></i> 2026 ST. JOHN'S MEDICAL CENTER. All
+            rights reserved.
+          </div>
+          <div class="footer-bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Accessibility</a>
+            <a href="#">HIPAA Notice</a>
+            <a href="#">Sitemap</a>
+          </div>
+          <div class="developer-credit">
+            Designed with <i class="fas fa-heart" style="color: #c6a43c"></i> by
+            <span>STORMY-TECH</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== SHARED SCRIPTS (SAME BEHAVIOR AS INDEX) ===== -->
+    <script>
+      // SMART SCROLL NAVBAR (identical to index)
+      const header = document.getElementById("mainHeader");
+      const scrollProgress = () => {
+        if (window.scrollY > 50) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressContainer = document.getElementById("progressContainer");
+        const progressPercentage =
+          document.getElementById("progressPercentage");
+        if (winScroll > 300) progressContainer.classList.add("show");
+        else progressContainer.classList.remove("show");
+        document.documentElement.style.setProperty("--progress", scrolled);
+        if (progressPercentage)
+          progressPercentage.textContent = Math.round(scrolled) + "%";
+      };
+      window.addEventListener("scroll", scrollProgress);
+      window.addEventListener("load", scrollProgress);
+
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // REVEAL ON SCROLL
+      const revealSections = () => {
+        document.querySelectorAll(".reveal-section").forEach((section) => {
+          if (section.getBoundingClientRect().top < window.innerHeight - 100)
+            section.classList.add("revealed");
+        });
+      };
+      window.addEventListener("scroll", revealSections);
+      window.addEventListener("load", revealSections);
+
+      // SMOOTH SCROLL FOR ANCHORS
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      // CLOSE MOBILE MENU WHEN LINK CLICKED
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("check").checked = false;
+        });
+      });
+    </script>
+  </body>
+</html>
