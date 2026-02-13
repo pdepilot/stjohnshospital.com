@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Secure Patient Access · St. John's Hospital</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./CSS/auth.css">
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+</head>
+<body>
+  <!-- ===== ENTERPRISE NAVBAR (INTEGRATED FROM MAIN SITE) ===== -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="top-left">
+        <span>JCI ACCREDITED</span>
+        <span class="emergency-badge"
+          ><i class="fas fa-shield-alt"></i> LEVEL 1 TRAUMA CENTER</span
+        >
+      </div>
+      <div class="top-right">
+        <span><i class="fas fa-envelope"></i> concierge@stjohns.health</span>
+        <span><i class="fas fa-phone-alt"></i> +1 (800) 567-8900</span>
+        <div class="social-icons-mini">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header" id="mainHeader">
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <input type="checkbox" id="check" />
+        <div
+          class="nav-overlay"
+          onclick="document.getElementById('check').checked = false"
+        ></div>
+
+        <label for="check" class="menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </label>
+
+        <div class="logo">
+          <a href="index.html">
+            <img
+              src="img/waver-removebg-preview.png"
+              alt="St. John's Hospital Logo"
+            />
+          </a>
+        </div>
+
+        <div class="nav-links">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="appointment.html">Appointment</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="auth.html" class="btn-primary">Patient Portal</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== ENTERPRISE AUTHENTICATION GATEWAY ===== -->
+  <!-- HIPAA‑Compliant · 256‑bit Encryption · Secure Session Management -->
+  
+  <div class="auth-container" id="authContainer">
+    
+    <!-- === LEFT PANEL – BRANDING, TRUST, MEDICAL === -->
+    <div class="brand-panel">
+      <div class="brand-content">
+        <div class="brand-header">
+          <div class="hospital-logo">
+            <i class="fas fa-shield-heart"></i>
+            <span class="logo-text">St. John's</span>
+          </div>
+          <button class="theme-toggle auth-theme-toggle" id="authThemeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+        
+        <div class="brand-main">
+          <h1 class="brand-title">Secure Patient Access Portal</h1>
+          <p class="brand-subtitle">Your health information is protected with enterprise‑grade security. Access your records, appointments, and care team anytime.</p>
+          
+          <div class="security-badge-container">
+            <div class="security-badge">
+              <i class="fas fa-lock"></i>
+              <span>256‑bit Encryption</span>
+            </div>
+            <div class="security-badge">
+              <i class="fas fa-shield-alt"></i>
+              <span>HIPAA Compliant</span>
+            </div>
+            <div class="security-badge">
+              <i class="fas fa-check-circle"></i>
+              <span>JCI Accredited</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="brand-footer">
+          <div class="testimonial">
+            <i class="fas fa-quote-left"></i>
+            <p>“The most secure and seamless patient portal I've ever used.”</p>
+            <div class="testimonial-author">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+              <div>
+                <strong>Eleanor Vance</strong>
+                <span>Patient since 2018</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- === RIGHT PANEL – AUTHENTICATION FORMS === -->
+    <div class="form-panel" id="formPanel">
+      <div class="form-container">
+        
+        <!-- Toggle Header -->
+        <div class="auth-toggle-header">
+          <button class="toggle-btn active" id="loginToggle">Login</button>
+          <button class="toggle-btn" id="signupToggle">Sign Up</button>
+          <div class="toggle-indicator" id="toggleIndicator"></div>
+        </div>
+        
+        <!-- ===== LOGIN FORM ===== -->
+        <div class="auth-form active" id="loginForm">
+          <h2>Welcome back</h2>
+          <p class="form-subtitle">Please enter your credentials to access your portal.</p>
+          
+          <form id="loginFormElement" novalidate>
+            <div class="form-group">
+              <label for="loginEmail">Email or Patient ID</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="text" id="loginEmail" placeholder="eleanor.vance@example.com or MR-784-5921" required>
+              </div>
+              <div class="error-message" id="loginEmailError"></div>
+            </div>
+            
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="loginPassword" placeholder="••••••••" required>
+                <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+              <div class="error-message" id="loginPasswordError"></div>
+            </div>
+            
+            <div class="form-group login-error-container" id="loginErrorContainer" style="display: none;">
+              <div class="error-message" id="loginGeneralError"></div>
+            </div>
+            
+            <div class="form-row">
+              <label class="checkbox-container">
+                <input type="checkbox" id="rememberDevice">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Remember this device</span>
+              </label>
+              <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="btn-primary btn-block" id="loginSubmit">
+              <span class="btn-text">Sign in to portal</span>
+              <span class="btn-loader" style="display: none;"><i class="fas fa-circle-notch fa-spin"></i></span>
+            </button>
+            
+            <div class="divider">
+              <span>Or continue with</span>
+            </div>
+            
+            <div class="oauth-buttons">
+              <button type="button" class="oauth-btn google">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+              </button>
+              <button type="button" class="oauth-btn apple">
+                <i class="fab fa-apple"></i>
+                <span>Apple</span>
+              </button>
+              <button type="button" class="oauth-btn microsoft">
+                <i class="fab fa-microsoft"></i>
+                <span>Microsoft</span>
+              </button>
+            </div>
+            
+            <p class="auth-footer">
+              Don't have an account? <a href="#" id="switchToSignup">Sign up</a>
+            </p>
+          </form>
+        </div>
+        
+        <!-- ===== SIGNUP FORM – MULTI‑STEP WIZARD ===== -->
+        <div class="auth-form" id="signupForm">
+          <h2>Create your account</h2>
+          <p class="form-subtitle">Join thousands of patients who trust St. John's.</p>
+          
+          <!-- Progress Indicator -->
+          <div class="progress-container">
+            <div class="progress-steps">
+              <div class="step active" data-step="1">
+                <span class="step-number">1</span>
+                <span class="step-label">Personal</span>
+              </div>
+              <div class="step" data-step="2">
+                <span class="step-number">2</span>
+                <span class="step-label">Medical</span>
+              </div>
+              <div class="step" data-step="3">
+                <span class="step-number">3</span>
+                <span class="step-label">Photo</span>
+              </div>
+              <div class="step" data-step="4">
+                <span class="step-number">4</span>
+                <span class="step-label">Security</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+            </div>
+          </div>
+          
+          <!-- Step 1: Personal Information -->
+          <div class="step-content active" id="step1">
+            <h3>Personal Information</h3>
+            <div class="step-content-wrapper">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="firstName" placeholder="Eleanor" required>
+                  </div>
+                  <div class="error-message" id="firstNameError"></div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="lastName" placeholder="Vance" required>
+                  </div>
+                  <div class="error-message" id="lastNameError"></div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="signupEmail">Email Address</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope input-icon"></i>
+                  <input type="email" id="signupEmail" placeholder="eleanor.vance@example.com" required>
+                </div>
+                <div class="error-message" id="signupEmailError"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-phone input-icon"></i>
+                  <input type="tel" id="phone" placeholder="(617) 555-0123" required>
+                </div>
+                <div class="error-message" id="phoneError"></div>
+              </div>
+              
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="dob">Date of Birth</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-calendar input-icon"></i>
+                    <input type="date" id="dob" required>
+                  </div>
+                  <div class="error-message" id="dobError"></div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="gender">Gender</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-venus-mars input-icon"></i>
+                    <select id="gender" required>
+                      <option value="" disabled selected>Select</option>
+                      <option value="female">Female</option>
+                      <option value="male">Male</option>
+                      <option value="other">Other</option>
+                      <option value="prefer-not">Prefer not to say</option>
+                    </select>
+                  </div>
+                  <div class="error-message" id="genderError"></div>
+                </div>
+              </div>
+            </div>
+            <div class="step-navigation">
+              <button class="btn-primary btn-next" id="step1Next" disabled>Next step</button>
+            </div>
+          </div>
+          
+          <!-- Step 2: Medical & Contact Info -->
+          <div class="step-content" id="step2">
+            <h3>Medical & Emergency Contact</h3>
+            <div class="step-content-wrapper">
+              <div class="form-group">
+                <label for="insurance">Insurance Provider</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-id-card input-icon"></i>
+                  <input type="text" id="insurance" placeholder="Blue Cross Blue Shield" required>
+                </div>
+                <div class="error-message" id="insuranceError"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="emergencyName">Emergency Contact Name</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-user-tie input-icon"></i>
+                  <input type="text" id="emergencyName" placeholder="John Vance" required>
+                </div>
+                <div class="error-message" id="emergencyNameError"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="emergencyPhone">Emergency Contact Phone</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-phone-alt input-icon"></i>
+                  <input type="tel" id="emergencyPhone" placeholder="(617) 555-0199" required>
+                </div>
+                <div class="error-message" id="emergencyPhoneError"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="address">Address</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-map-marker-alt input-icon"></i>
+                  <input type="text" id="address" placeholder="123 Main St, Boston, MA 02114" required>
+                </div>
+                <div class="error-message" id="addressError"></div>
+              </div>
+            </div>
+            <div class="step-navigation">
+              <button class="btn-secondary btn-prev" id="step2Prev">Previous</button>
+              <button class="btn-primary btn-next" id="step2Next" disabled>Next step</button>
+            </div>
+          </div>
+          
+          <!-- Step 3: Profile Photo Setup -->
+          <div class="step-content" id="step3">
+            <h3>Profile Photo (Optional)</h3>
+            <p class="step-hint">Upload a photo or take one with your camera to personalize your portal.</p>
+            
+            <div class="photo-setup">
+              <div class="photo-preview" id="photoPreview">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Profile preview" id="profileImage">
+                <button class="remove-photo" id="removePhoto" style="display: none;">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              
+              <div class="photo-actions">
+                <button class="btn-outline" id="uploadPhotoBtn" type="button">
+                  <i class="fas fa-upload"></i> Upload Photo
+                </button>
+                <button class="btn-outline" id="takePhotoBtn" type="button">
+                  <i class="fas fa-camera"></i> Take Photo
+                </button>
+                <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+              </div>
+              
+              <div class="camera-container" id="cameraContainer" style="display: none;">
+                <video id="cameraFeed" autoplay playsinline></video>
+                <div class="camera-controls">
+                  <button class="btn-primary" id="capturePhotoBtn" type="button">
+                    <i class="fas fa-camera"></i> Capture
+                  </button>
+                  <button class="btn-secondary" id="cancelCameraBtn" type="button">
+                    <i class="fas fa-times"></i> Cancel
+                  </button>
+                </div>
+              </div>
+              
+              <div class="camera-fallback" id="cameraFallback" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Camera access denied. Please upload a photo instead.</p>
+              </div>
+            </div>
+            
+            <div class="step-navigation">
+              <button class="btn-secondary btn-prev" id="step3Prev">Previous</button>
+              <button class="btn-primary btn-next" id="step3Next">Next step</button>
+            </div>
+          </div>
+          
+          <!-- Step 4: Security Setup -->
+          <div class="step-content" id="step4">
+            <h3>Security Setup</h3>
+            <div class="step-content-wrapper">
+              <div class="form-group">
+                <label for="password">Create Password</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-lock input-icon"></i>
+                  <input type="password" id="password" placeholder="••••••••" required>
+                  <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="error-message" id="passwordError"></div>
+                <div class="password-strength" id="passwordStrength">
+                  <div class="strength-bar" id="strengthBar"></div>
+                  <span class="strength-text" id="strengthText">Enter password</span>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-lock input-icon"></i>
+                  <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                  <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="error-message" id="confirmPasswordError"></div>
+              </div>
+              
+              <div class="form-group checkbox-group">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="termsCheckbox" required>
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                </label>
+              </div>
+              
+              <div class="form-group checkbox-group">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="privacyCheckbox" required>
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">I consent to the collection and use of my health information as described in the <a href="#">HIPAA Notice</a></span>
+                </label>
+              </div>
+              
+              <div class="recaptcha-placeholder">
+                <i class="fas fa-shield-alt"></i>
+                <span>reCAPTCHA protected · Privacy · Terms</span>
+              </div>
+            </div>
+            
+            <div class="step-navigation">
+              <button class="btn-secondary btn-prev" id="step4Prev">Previous</button>
+              <button class="btn-primary btn-next" id="signupSubmit">
+                <span class="btn-text">Create account</span>
+                <span class="btn-loader" style="display: none;"><i class="fas fa-circle-notch fa-spin"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Security Footer -->
+      <div class="security-footer">
+        <i class="fas fa-lock"></i>
+        <span>256‑bit encrypted · HIPAA compliant · Secure session</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ===== SUCCESS MODAL ===== -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-container">
+      <div class="modal-icon success">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Account Created Successfully!</h3>
+      <p>We've sent a verification email to <span id="userEmailDisplay"></span>. Please verify your email address to activate your account.</p>
+      <div class="modal-actions">
+        <button class="btn-primary" id="modalContinueBtn">Continue to Login</button>
+        <button class="btn-secondary" id="modalResendBtn">Resend email</button>
+      </div>
+      <p class="modal-note">Verification required for HIPAA compliance.</p>
+    </div>
+  </div>
+  
+  <!-- ===== SESSION TIMEOUT MODAL ===== -->
+  <div class="modal-overlay" id="sessionTimeoutModal">
+    <div class="modal-container">
+      <div class="modal-icon warning">
+        <i class="fas fa-hourglass-half"></i>
+      </div>
+      <h3>Session Expiring</h3>
+      <p>For your security, your session will expire in 2 minutes due to inactivity.</p>
+      <div class="modal-actions">
+        <button class="btn-primary" id="staySignedInBtn">Stay signed in</button>
+        <button class="btn-secondary" id="logoutNowBtn">Logout now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER (INTEGRATED FROM MAIN SITE) ===== -->
+  <footer id="contact" class="footer">
+    <div class="footer-glass-container">
+      <div class="footer-glass-panel">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img src="./img/waver-removebg-preview.png" alt="St. John's" />
+              <div class="footer-logo-text">
+                <h2>ST. JOHN'S</h2>
+              </div>
+            </div>
+            <p class="footer-description">
+              Setting the global standard for healthcare excellence since
+              1998. JCI-accredited, multi-specialty academic medical center
+              serving patients from over 80 countries.
+            </p>
+            <div class="accreditation-badges">
+              <span class="badge"><i class="fas fa-check-circle"></i> JCI</span>
+              <span class="badge"><i class="fas fa-check-circle"></i> MAGNET</span>
+              <span class="badge"><i class="fas fa-check-circle"></i> ISO 9001</span>
+            </div>
+            <div class="footer-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-x-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div>
+            <h3 class="footer-heading">For Patients</h3>
+            <ul class="footer-links">
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Appointments</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Patient Portal</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Medical Records</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Insurance & Billing</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Visitor Information</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> International Services</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Centers of Excellence</h3>
+            <ul class="footer-links">
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Cardiovascular Institute</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Cancer Center</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Neuroscience Institute</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Orthopedics & Sports Medicine</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Women's Health</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Transplant Institute</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-heading">Concierge</h3>
+            <ul class="contact-info">
+              <li><i class="fas fa-map-marker-alt"></i> 250 Medical Center Drive<br />Boston, MA 02114</li>
+              <li><i class="fas fa-phone-alt"></i> 24/7 Helpline: +1 (800) 567-8900</li>
+              <li><i class="fas fa-envelope"></i> concierge@stjohns.health</li>
+              <li><i class="fas fa-clock"></i> Mon-Fri: 8AM - 8PM<br />Sat-Sun: 9AM - 5PM</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-glass">
+        <div class="copyright">
+          <i class="far fa-copyright"></i> 2026 ST. JOHN'S MEDICAL CENTER. All
+          rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Accessibility</a>
+          <a href="#">HIPAA Notice</a>
+          <a href="#">Sitemap</a>
+        </div>
+        <div class="developer-credit">
+          Designed with <i class="fas fa-heart" style="color: #c6a43c;"></i> by
+          <span>STORMY-TECH</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Scripts -->
+  <script src="./JAVASCRIPT/auth.js"></script>
+  <script>
+    // Smart scroll navbar
+    const header = document.getElementById("mainHeader");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    });
+    
+    // Close mobile menu when link clicked
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.getElementById("check").checked = false;
+      });
+    });
+  </script>
+</body>
+</html>

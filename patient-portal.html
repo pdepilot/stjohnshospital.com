@@ -44,11 +44,11 @@
         <!-- Patient Brief (visible when expanded) -->
         <div class="sidebar-patient-brief">
           <div class="patient-avatar">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient" id="sidebarPatientAvatar">
           </div>
           <div class="patient-brief-info">
-            <span class="patient-name">Eleanor Vance</span>
-            <span class="patient-id">ID: MR-784-5921</span>
+            <span class="patient-name" id="sidebarPatientName">Eleanor Vance</span>
+            <span class="patient-id" id="sidebarPatientId">ID: MR-784-5921</span>
           </div>
         </div>
         
@@ -141,7 +141,7 @@
           </button>
           <div class="page-title">
             <h1>Dashboard</h1>
-            <span class="page-subtitle">Welcome back, Eleanor</span>
+            <span class="page-subtitle" id="welcomeSubtitle">Welcome back, Eleanor</span>
           </div>
         </div>
         
@@ -208,9 +208,9 @@
           <div class="profile-dropdown">
             <button class="profile-btn" id="profileBtn">
               <div class="profile-avatar-small">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient" id="profileAvatar">
               </div>
-              <span class="profile-name">Eleanor V.</span>
+              <span class="profile-name" id="profileName">Eleanor V.</span>
               <i class="fas fa-chevron-down"></i>
             </button>
             <div class="profile-menu" id="profileMenu">
@@ -236,30 +236,38 @@
             <div class="summary-grid">
               <div class="summary-item main-info">
                 <div class="patient-photo-large">
-                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Eleanor Vance">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient" id="patientPhotoLarge">
                 </div>
                 <div class="patient-details">
-                  <h2>Eleanor Vance</h2>
+                  <h2 id="patientName">Eleanor Vance</h2>
                   <div class="patient-meta">
-                    <span><i class="fas fa-id-card"></i> MR-784-5921</span>
-                    <span><i class="fas fa-birthday-cake"></i> DOB: 05/12/1978</span>
-                    <span><i class="fas fa-calendar"></i> Last visit: 02/28/2026</span>
+                    <span><i class="fas fa-id-card"></i> <span id="patientId">MR-784-5921</span></span>
+                    <span><i class="fas fa-birthday-cake"></i> <span id="patientDob">DOB: 05/12/1978</span></span>
+                    <span><i class="fas fa-calendar"></i> <span id="lastVisit">Last visit: 02/28/2026</span></span>
+                  </div>
+                  <!-- Hidden contact info for data population -->
+                  <div style="display: none;">
+                    <span id="patientEmail">eleanor.vance@example.com</span>
+                    <span id="patientPhone">(617) 555-0123</span>
+                    <span id="patientAddress">123 Main St, Boston, MA 02114</span>
+                    <span id="patientEmergencyName">John Vance</span>
+                    <span id="patientEmergencyPhone">(617) 555-0199</span>
                   </div>
                 </div>
               </div>
               <div class="summary-item provider-info">
-                <div class="info-tag">
+                <div class="info-tag" id="primaryPhysician">
                   <i class="fas fa-user-md"></i>
                   <div>
                     <span class="label">Primary Physician</span>
                     <span class="value">Dr. Sarah Chen, MD</span>
                   </div>
                 </div>
-                <div class="info-tag">
+                <div class="info-tag" id="insuranceProvider">
                   <i class="fas fa-shield-alt"></i>
                   <div>
                     <span class="label">Insurance</span>
-                    <span class="value">Blue Cross Blue Shield · PPO</span>
+                    <span class="value" id="insuranceValue">Blue Cross Blue Shield · PPO</span>
                   </div>
                 </div>
               </div>
@@ -393,7 +401,7 @@
           </div>
           
           <div class="appointments-table-container">
-            <table class="appointments-table">
+            <table class="appointments-table" id="appointmentsTable">
               <thead>
                 <tr>
                   <th>Date & Time</th>
@@ -513,6 +521,9 @@
             </div>
             
             <!-- Additional tabs hidden for brevity; same pattern -->
+            <div class="tab-pane" id="vaccinations"></div>
+            <div class="tab-pane" id="imaging"></div>
+            <div class="tab-pane" id="downloadable-documents"></div>
           </div>
         </section>
 
@@ -524,7 +535,7 @@
           </div>
           
           <div class="lab-table-container">
-            <table class="lab-table">
+            <table class="lab-table" id="labResultsTable">
               <thead>
                 <tr>
                   <th>Test Name</th>
@@ -585,7 +596,7 @@
             <a href="#" class="section-link">Request refill</a>
           </div>
           
-          <div class="prescriptions-grid">
+          <div class="prescriptions-grid" id="prescriptionsGrid">
             <div class="prescription-card">
               <div class="prescription-header">
                 <i class="fas fa-prescription-bottle"></i>
@@ -628,7 +639,7 @@
         <section class="dashboard-section" id="billing-module" aria-label="Billing and insurance">
           <div class="dashboard-grid two-column">
             <!-- Billing Summary -->
-            <div class="billing-summary-card">
+            <div class="billing-summary-card" id="billingSummary">
               <div class="card-header">
                 <h4>Outstanding Balance</h4>
                 <i class="fas fa-shield-alt secure-icon" title="Secure payment"></i>
@@ -660,28 +671,28 @@
             </div>
             
             <!-- Insurance Info -->
-            <div class="insurance-info-card">
+            <div class="insurance-info-card" id="insuranceInfo">
               <div class="card-header">
                 <h4>Insurance</h4>
                 <i class="fas fa-check-circle verified-icon" title="Verified"></i>
               </div>
               <div class="insurance-provider">
-                <h5>Blue Cross Blue Shield</h5>
-                <p>PPO · Group #784-221</p>
-                <p>Member ID: BCB-8754-221A</p>
+                <h5 id="insuranceName">Blue Cross Blue Shield</h5>
+                <p id="insurancePlan">PPO · Group #784-221</p>
+                <p id="insuranceMemberId">Member ID: BCB-8754-221A</p>
               </div>
               <div class="coverage-details">
                 <div class="coverage-item">
                   <span>Coverage effective</span>
-                  <strong>Jan 1, 2026</strong>
+                  <strong id="coverageEffective">Jan 1, 2026</strong>
                 </div>
                 <div class="coverage-item">
                   <span>Annual deductible</span>
-                  <strong>$1,500 / $500 met</strong>
+                  <strong id="deductible">$1,500 / $500 met</strong>
                 </div>
                 <div class="coverage-item">
                   <span>Out-of-pocket max</span>
-                  <strong>$3,000</strong>
+                  <strong id="outOfPocket">$3,000</strong>
                 </div>
               </div>
               <a href="#" class="link">View benefits summary</a>
@@ -697,7 +708,7 @@
           </div>
           
           <div class="message-thread-container">
-            <div class="message-thread">
+            <div class="message-thread" id="messageThread">
               <div class="message-item incoming">
                 <div class="message-avatar">
                   <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Dr. Chen">
@@ -713,7 +724,7 @@
               
               <div class="message-item outgoing">
                 <div class="message-avatar">
-                  <span>EV</span>
+                  <span id="messageInitials">EV</span>
                 </div>
                 <div class="message-content">
                   <div class="message-header">
@@ -756,7 +767,7 @@
           <div class="documents-grid">
             <div class="document-category">
               <h4>Uploaded Documents</h4>
-              <div class="document-list">
+              <div class="document-list" id="uploadedDocuments">
                 <div class="document-item">
                   <i class="fas fa-file-pdf"></i>
                   <div class="document-info">
@@ -778,7 +789,7 @@
             
             <div class="document-category">
               <h4>Forms & Consents</h4>
-              <div class="document-list">
+              <div class="document-list" id="formsDocuments">
                 <div class="document-item">
                   <i class="fas fa-file-signature"></i>
                   <div class="document-info">
