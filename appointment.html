@@ -1,0 +1,2505 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <title>Book Appointment | ST. JOHN'S HOSPITAL</title>
+    <style>
+      /* ===== INHERIT FULL DESIGN SYSTEM ===== */
+      :root {
+        --primary: #0a2647;
+        --primary-light: #144272;
+        --secondary: #2c7be5;
+        --accent: #00b4d8;
+        --accent-soft: #9be7ff;
+        --gold: #c6a43c;
+        --gold-light: #f5e7b2;
+        --gold-soft: rgba(198, 164, 60, 0.12);
+        --gold-deep: #a6892e;
+        --dark: #0b1c2f;
+        --darker: #07111e;
+        --light: #ffffff;
+        --light-bg: #f8fafc;
+        --glass: rgba(255, 255, 255, 0.2);
+        --glass-border: rgba(255, 255, 255, 0.15);
+        --glass-shadow: rgba(31, 38, 135, 0.1);
+        --text-dark: #1e293b;
+        --text-light: #f1f5f9;
+        --success: #10b981;
+        --success-light: #d1fae5;
+        --gradient-blue: linear-gradient(
+          145deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        --gradient-gold: linear-gradient(145deg, #c6a43c, #e6c873);
+        --gradient-accent: linear-gradient(
+          145deg,
+          var(--secondary),
+          var(--accent)
+        );
+        --gradient-dark: linear-gradient(145deg, #0b1c2f, #0a1820);
+        --gradient-pearl: linear-gradient(145deg, #ffffff, #f8fafc);
+        --gradient-success: linear-gradient(145deg, #10b981, #059669);
+        --shadow-sm: 0 10px 30px -10px rgba(2, 48, 71, 0.08);
+        --shadow-md: 0 20px 40px -15px rgba(2, 48, 71, 0.12);
+        --shadow-lg: 0 30px 60px -15px rgba(2, 48, 71, 0.15);
+        --shadow-gold: 0 15px 35px -10px rgba(198, 164, 60, 0.15);
+        --shadow-gold-lg: 0 25px 50px -12px rgba(198, 164, 60, 0.25);
+        --shadow-success: 0 15px 35px -10px rgba(16, 185, 129, 0.15);
+        --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+        --border-radius-sm: 12px;
+        --border-radius-md: 18px;
+        --border-radius-lg: 24px;
+        --border-radius-xl: 32px;
+        --border-radius-2xl: 48px;
+        --border-radius-full: 999px;
+        --header-height: 100px;
+        --header-height-scroll: 70px;
+        --progress: 0;
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-gentle: all 0.3s ease;
+        --transition-bounce: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        --transition-luxury: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-dark);
+        background-color: var(--light-bg);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      /* ===== REVEAL SYSTEM ===== */
+      .reveal-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .reveal-section.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.5s;
+      }
+      .reveal-delay-6 {
+        transition-delay: 0.6s;
+      }
+
+      /* ===== SCROLL PROGRESS ===== */
+      .progress-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        z-index: 9997;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-gentle);
+      }
+      .progress-container.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      .progress-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+      }
+      .progress-ring:hover {
+        transform: scale(1.05);
+      }
+      .progress-ring-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: conic-gradient(
+          var(--gold) calc(var(--progress) * 1deg),
+          #e2e8f0 0deg
+        );
+        mask: radial-gradient(transparent 55%, black 56%);
+        -webkit-mask: radial-gradient(transparent 55%, black 56%);
+      }
+      .progress-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .progress-content i {
+        font-size: 16px;
+        margin-bottom: 2px;
+      }
+
+      /* ===== NAVBAR – IDENTICAL ===== */
+      .main-header {
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        width: 100%;
+        transition: var(--transition-smooth);
+      }
+      .main-header.scrolled {
+        background: rgba(10, 38, 71, 0.95);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-lg);
+      }
+      .main-header.scrolled .nav-wrapper {
+        padding: 10px 40px;
+      }
+      .main-header.scrolled .logo img {
+        height: 50px;
+      }
+      .main-header.scrolled .logo-text h1 {
+        color: white;
+      }
+      .main-header.scrolled .nav-links ul li a:not(.btn-primary) {
+        color: var(--text-light);
+      }
+      .topbar {
+        background: var(--darker);
+        color: var(--text-light);
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .topbar-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+      .top-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .top-left span {
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent-soft);
+      }
+      .emergency-badge {
+        background: rgba(198, 164, 60, 0.15);
+        padding: 6px 14px;
+        border-radius: var(--border-radius-full);
+        border: 1px solid rgba(198, 164, 60, 0.3);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--gold-light);
+      }
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .top-right span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+      .top-right i {
+        color: var(--gold);
+      }
+      .social-icons-mini {
+        display: flex;
+        gap: 15px;
+      }
+      .social-icons-mini a {
+        color: var(--text-light);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+      .social-icons-mini a:hover {
+        opacity: 1;
+        color: var(--gold);
+        transform: translateY(-2px);
+      }
+
+      .navbar {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .nav-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        transition: padding 0.3s ease;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-decoration: none;
+      }
+      .logo img {
+        height: 70px;
+        width: auto;
+        transition: height 0.3s ease;
+      }
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+      }
+      .logo-text h1 {
+        font-size: 1.5rem;
+        color: var(--primary);
+        line-height: 1.2;
+        transition: color 0.3s ease;
+      }
+      .logo-text span {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* ===== MOBILE MENU ===== */
+      #check {
+        display: none;
+      }
+      .menu-toggle {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: var(--primary);
+        transition: color 0.3s ease;
+        z-index: 10000;
+      }
+      .main-header.scrolled .menu-toggle {
+        color: white;
+      }
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 9997;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      @media (max-width: 992px) {
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 300px;
+          height: 100vh;
+          background: rgba(10, 38, 71, 0.98);
+          backdrop-filter: blur(16px);
+          box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+          transition: right 0.3s ease;
+          z-index: 9998;
+          padding: 100px 30px 40px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        #check:checked ~ .nav-links {
+          right: 0;
+        }
+        #check:checked ~ .nav-overlay {
+          display: block;
+          opacity: 1;
+          visibility: visible;
+        }
+        .nav-links ul {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          gap: 28px;
+          width: 100%;
+        }
+        .nav-links ul li a {
+          text-decoration: none;
+          color: white !important;
+          font-weight: 600;
+          font-size: 1.1rem;
+          display: inline-block;
+          width: 100%;
+        }
+        .nav-links ul li a::after {
+          content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--gradient-gold);
+          transition: width 0.3s ease;
+          border-radius: var(--border-radius-full);
+        }
+        .nav-links ul li a:hover::after,
+        .nav-links ul li a.active-appointment::after {
+          width: 40px;
+        }
+        .nav-links ul li a:hover,
+        .nav-links ul li a.active-appointment {
+          color: var(--gold-light) !important;
+        }
+        .nav-links ul li a.btn-primary {
+          background: var(--gradient-gold);
+          color: var(--darker) !important;
+          padding: 14px 28px !important;
+          border-radius: var(--border-radius-full);
+          width: auto;
+          text-align: center;
+        }
+        .nav-links ul li a.btn-primary::after {
+          display: none;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+      @media (min-width: 993px) {
+        .nav-links {
+          position: static;
+          right: auto;
+          width: auto;
+          height: auto;
+          background: transparent;
+          backdrop-filter: none;
+          box-shadow: none;
+          padding: 0;
+          overflow-y: visible;
+        }
+        .nav-links ul {
+          flex-direction: row;
+          align-items: center;
+          gap: 35px;
+        }
+        .nav-links ul li a {
+          color: var(--text-dark);
+          font-size: 0.95rem;
+        }
+        .main-header.scrolled .nav-links ul li a:not(.btn-primary) {
+          color: var(--text-light);
+        }
+      }
+      .nav-links ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        gap: 35px;
+      }
+      .nav-links ul li a {
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+        letter-spacing: 0.3px;
+      }
+      .nav-links ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--gradient-gold);
+        transition: width 0.3s ease;
+        border-radius: var(--border-radius-full);
+      }
+      .nav-links ul li a:hover::after,
+      .nav-links ul li a.active-appointment::after {
+        width: 70%;
+      }
+      .btn-primary {
+        background: var(--gradient-blue);
+        color: white !important;
+        padding: 12px 28px !important;
+        border-radius: var(--border-radius-full);
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease !important;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        background: var(--gradient-accent);
+      }
+      .btn-primary::after {
+        display: none !important;
+      }
+
+      /* ===== APPOINTMENT PAGE SPECIFIC – GORGEOUS, STUNNING ===== */
+      
+      /* === HERO – FIXED BACKGROUND, WARM INVITATION === */
+      .appointment-hero {
+        position: relative;
+        height: 50vh;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        background:
+          linear-gradient(95deg, rgba(10, 38, 71, 0.88), rgba(7, 17, 30, 0.8)),
+          url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center 35%;
+        background-attachment: fixed;
+        margin-top: 0;
+        isolation: isolate;
+      }
+      .appointment-hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        color: white;
+        position: relative;
+        z-index: 5;
+        width: 100%;
+      }
+      .appointment-hero-sub {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: block;
+      }
+      .appointment-hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        font-family: "Playfair Display", serif;
+        max-width: 900px;
+      }
+      .appointment-hero-desc {
+        font-size: 1.25rem;
+        opacity: 0.95;
+        max-width: 650px;
+        font-weight: 300;
+        margin-bottom: 15px;
+      }
+
+      /* === SECTION HEADERS === */
+      .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+      .section-tag {
+        display: inline-block;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .section-header h2 {
+        font-size: 2.8rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+      .section-header p {
+        font-size: 1.1rem;
+        color: #475569;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* === APPOINTMENT FLOW – LUXURY STEPPER === */
+      .appointment-flow {
+        max-width: 1400px;
+        margin: -50px auto 40px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 10;
+      }
+      .flow-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+      }
+      .flow-card {
+        background: white;
+        padding: 35px 25px;
+        border-radius: var(--border-radius-xl);
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        position: relative;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition-bounce);
+      }
+      .flow-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-gold-lg);
+      }
+      .flow-number {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-gold);
+        color: var(--darker);
+        font-size: 1.8rem;
+        font-weight: 800;
+        font-family: "Playfair Display", serif;
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        box-shadow: var(--shadow-gold);
+      }
+      .flow-card h3 {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+      .flow-card p {
+        color: #475569;
+        font-size: 0.95rem;
+      }
+
+      /* === SUCCESS MESSAGE – WARM, ELEGANT, ANIMATED === */
+      .success-message {
+        max-width: 1400px;
+        margin: 30px auto 0;
+        padding: 0 40px;
+        display: none;
+      }
+      .success-message.show {
+        display: block;
+        animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .success-card {
+        background: linear-gradient(145deg, #ffffff, #fafcfc);
+        border-radius: var(--border-radius-2xl);
+        padding: 50px 40px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+      }
+      .success-card::before {
+        content: "✓";
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        font-size: 200px;
+        opacity: 0.03;
+        color: var(--success);
+        font-weight: 800;
+      }
+      .success-icon {
+        width: 120px;
+        height: 120px;
+        background: var(--gradient-success);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: white;
+        box-shadow: var(--shadow-success);
+        animation: pulse 2s infinite;
+        flex-shrink: 0;
+      }
+      .success-content {
+        flex: 1;
+      }
+      .success-content h3 {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-family: "Playfair Display", serif;
+      }
+      .success-content p {
+        font-size: 1.1rem;
+        color: #475569;
+        margin-bottom: 25px;
+        line-height: 1.7;
+      }
+      .success-details {
+        background: rgba(16, 185, 129, 0.04);
+        padding: 20px 25px;
+        border-radius: var(--border-radius-lg);
+        border-left: 5px solid var(--success);
+        margin-bottom: 25px;
+      }
+      .success-details p {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .success-details i {
+        color: var(--success);
+        width: 24px;
+        text-align: center;
+      }
+      .btn-success {
+        background: transparent;
+        border: 2px solid var(--success);
+        color: var(--success);
+        padding: 14px 32px;
+        border-radius: var(--border-radius-full);
+        font-weight: 700;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .btn-success:hover {
+        background: var(--gradient-success);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-success);
+      }
+
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 20px rgba(16, 185, 129, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        }
+      }
+
+      /* === APPOINTMENT FORM – PEARL LUXURY PANEL === */
+      .appointment-form-section {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 60px 40px 80px;
+      }
+      .form-luxury-panel {
+        background: var(--gradient-pearl);
+        border-radius: var(--border-radius-2xl);
+        box-shadow: var(--shadow-lg);
+        padding: 60px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition-smooth);
+      }
+      .form-luxury-panel.submitted {
+        opacity: 0.5;
+        pointer-events: none;
+        transform: scale(0.98);
+      }
+      .form-luxury-panel::before {
+        content: "✧";
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        font-size: 300px;
+        opacity: 0.02;
+        color: var(--gold);
+        transform: rotate(15deg);
+      }
+      .form-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .form-header h2 {
+        font-size: 2.8rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+      .form-header p {
+        color: #64748b;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+      .form-group-full {
+        grid-column: span 2;
+      }
+      .form-group {
+        position: relative;
+        margin-bottom: 10px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 18px 25px;
+        padding-left: 60px;
+        border: 2px solid #e9eef4;
+        border-radius: var(--border-radius-full);
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+      }
+      .form-group textarea {
+        border-radius: var(--border-radius-xl);
+        resize: vertical;
+        min-height: 140px;
+        padding-left: 60px;
+        line-height: 1.6;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 5px rgba(198, 164, 60, 0.1);
+      }
+      .form-group i {
+        position: absolute;
+        left: 25px;
+        top: 52px;
+        color: var(--gold);
+        font-size: 1.2rem;
+      }
+      .form-group label + i {
+        top: 52px;
+      }
+
+      /* === ENHANCED NOTES FIELD – BEAUTIFUL, SPACIOUS, REFINED === */
+      .notes-field {
+        margin-top: 15px;
+      }
+      .notes-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .notes-label i {
+        width: 36px;
+        height: 36px;
+        background: rgba(198, 164, 60, 0.08);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+      .notes-label span {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 1.1rem;
+        letter-spacing: -0.01em;
+      }
+      .notes-hint {
+        display: block;
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 400;
+        margin-top: 4px;
+        letter-spacing: 0.3px;
+      }
+      .enhanced-textarea {
+        width: 100%;
+        padding: 24px 28px;
+        border: 2px solid #e9eef4;
+        border-radius: var(--border-radius-xl);
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--text-dark);
+        background: white;
+        resize: vertical;
+        min-height: 160px;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-inner);
+      }
+      .enhanced-textarea::placeholder {
+        color: #94a3b8;
+        font-weight: 300;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+        font-style: italic;
+      }
+      .enhanced-textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 6px rgba(198, 164, 60, 0.08);
+        background: white;
+      }
+      .textarea-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 12px;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        gap: 20px;
+      }
+      .textarea-footer i {
+        margin-right: 6px;
+        color: var(--gold);
+      }
+
+      .form-divider {
+        grid-column: span 2;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: #94a3b8;
+        font-weight: 600;
+        margin: 20px 0;
+      }
+      .form-divider-line {
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      }
+      .appointment-type-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 30px 0;
+      }
+      .appointment-type {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: var(--border-radius-lg);
+        padding: 30px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .appointment-type:hover {
+        border-color: var(--gold);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-gold);
+      }
+      .appointment-type.selected {
+        border-color: var(--gold);
+        background: rgba(198, 164, 60, 0.02);
+        box-shadow: var(--shadow-gold);
+      }
+      .appointment-type i {
+        font-size: 2.2rem;
+        color: var(--gold);
+        margin-bottom: 15px;
+      }
+      .appointment-type h4 {
+        font-size: 1.1rem;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+      .appointment-type p {
+        font-size: 0.85rem;
+        color: #64748b;
+      }
+      .time-slots-container {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed #e2e8f0;
+      }
+      .time-slots-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .time-slots-label i {
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+      .time-slots-label span {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .time-slots {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+      .time-slot {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: var(--border-radius-full);
+        padding: 14px 10px;
+        text-align: center;
+        font-weight: 600;
+        color: var(--primary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .time-slot:hover,
+      .time-slot.selected {
+        background: var(--gradient-gold);
+        border-color: transparent;
+        color: var(--darker);
+        transform: scale(1.02);
+      }
+      .btn-appointment {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        padding: 22px 50px;
+        border: none;
+        border-radius: var(--border-radius-full);
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow: var(--shadow-gold-lg);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+        margin-top: 40px;
+      }
+      .btn-appointment:hover {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 30px 60px -10px rgba(198, 164, 60, 0.4);
+      }
+
+      /* === PHYSICIAN SELECTION – PREMIUM CARDS === */
+      .physician-select-section {
+        background: linear-gradient(145deg, #ffffff, #f1f6fa);
+        padding: 100px 40px;
+      }
+      .physician-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        max-width: 1400px;
+        margin: 50px auto 0;
+      }
+      .physician-card {
+        background: white;
+        border-radius: var(--border-radius-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition-bounce);
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+      .physician-card:hover,
+      .physician-card.selected {
+        transform: translateY(-10px);
+        border-color: var(--gold);
+        box-shadow: var(--shadow-gold-lg);
+      }
+      .physician-image {
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+      }
+      .physician-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+      .physician-card:hover .physician-image img {
+        transform: scale(1.05);
+      }
+      .physician-info {
+        padding: 25px;
+        text-align: center;
+      }
+      .physician-info h3 {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+      .physician-dept {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+      }
+      .physician-availability {
+        background: rgba(44, 123, 229, 0.05);
+        padding: 8px 16px;
+        border-radius: var(--border-radius-full);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--primary);
+        display: inline-block;
+      }
+
+      /* === CONCIERGE ASSISTANCE – LUXURY === */
+      .concierge-assist {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .concierge-assist-content h2 {
+        font-size: 2.6rem;
+        color: var(--primary);
+        margin-bottom: 25px;
+      }
+      .concierge-assist-content p {
+        font-size: 1.1rem;
+        color: #475569;
+        margin-bottom: 35px;
+        line-height: 1.8;
+      }
+      .concierge-benefits {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .benefit-item i {
+        width: 50px;
+        height: 50px;
+        background: rgba(198, 164, 60, 0.08);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 1.3rem;
+        transition: var(--transition-bounce);
+      }
+      .benefit-item:hover i {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        transform: rotate(360deg);
+      }
+      .benefit-text strong {
+        display: block;
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+      }
+      .benefit-text span {
+        color: #64748b;
+        font-size: 0.95rem;
+      }
+      .concierge-assist-image {
+        border-radius: var(--border-radius-2xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+      }
+      .concierge-assist-image img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+      .concierge-assist-image:hover img {
+        transform: scale(1.02);
+      }
+      .concierge-assist-badge {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: var(--gradient-gold);
+        color: var(--darker);
+        padding: 15px 25px;
+        border-radius: var(--border-radius-full);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: var(--shadow-gold-lg);
+      }
+
+      /* === APPOINTMENT BENEFITS – ICON STRIP === */
+      .benefits-strip {
+        background: white;
+        padding: 60px 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      }
+      .benefits-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+      }
+      .benefit-card {
+        text-align: center;
+        padding: 20px;
+      }
+      .benefit-card i {
+        font-size: 2.4rem;
+        color: var(--gold);
+        margin-bottom: 20px;
+        background: rgba(198, 164, 60, 0.08);
+        padding: 20px;
+        border-radius: var(--border-radius-full);
+        transition: var(--transition-bounce);
+      }
+      .benefit-card:hover i {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        transform: rotateY(360deg);
+      }
+      .benefit-card h4 {
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+      .benefit-card p {
+        color: #64748b;
+        font-size: 0.95rem;
+      }
+
+      /* === TESTIMONIALS – SOCIAL PROOF === */
+      .testimonials-section {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 100px 40px;
+      }
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 50px;
+      }
+      .testimonial-card {
+        background: white;
+        padding: 40px 35px;
+        border-radius: var(--border-radius-xl);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+        position: relative;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+      }
+      .testimonial-quote {
+        font-size: 3rem;
+        color: var(--gold);
+        opacity: 0.2;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+      }
+      .testimonial-text {
+        color: #334155;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-style: italic;
+      }
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .testimonial-author img {
+        width: 60px;
+        height: 60px;
+        border-radius: var(--border-radius-full);
+        object-fit: cover;
+      }
+      .author-info h4 {
+        font-size: 1.1rem;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+      .author-info p {
+        color: var(--gold);
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      /* === CTA – FIXED BG === */
+      .cta-appointment {
+        position: relative;
+        background:
+          linear-gradient(95deg, rgba(10, 38, 71, 0.92), rgba(7, 17, 30, 0.9)),
+          url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center 30%;
+        background-attachment: fixed;
+        padding: 100px 40px;
+        text-align: center;
+        color: white;
+        isolation: isolate;
+      }
+      .cta-inner {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 5;
+      }
+      .cta-inner h2 {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 20px;
+      }
+      .cta-inner p {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        margin-bottom: 35px;
+      }
+      .btn-cta-gold {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        padding: 18px 52px;
+        border-radius: var(--border-radius-full);
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-gold);
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-cta-gold:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 45px -10px rgba(198, 164, 60, 0.5);
+      }
+
+      /* === FOOTER – IDENTICAL === */
+      .footer {
+        position: relative;
+        padding: 80px 40px 40px;
+        background: linear-gradient(145deg, #0b1e2b, #0a1820);
+        color: white;
+        overflow: hidden;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            circle at 20% 50%,
+            rgba(198, 164, 60, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(44, 123, 229, 0.03) 0%,
+            transparent 50%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.02) 0px,
+            rgba(255, 255, 255, 0.02) 1px,
+            transparent 1px,
+            transparent 10px
+          );
+        pointer-events: none;
+      }
+      .footer-glass-container {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .footer-glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-xl);
+        padding: 60px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        margin-bottom: 40px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 40px;
+      }
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .footer-logo img {
+        height: 60px;
+        filter: brightness(0) invert(1);
+      }
+      .footer-logo-text h2 {
+        font-size: 1.8rem;
+        color: white;
+      }
+      .footer-description {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+      }
+      .accreditation-badges {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 16px;
+        border-radius: var(--border-radius-full);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge i {
+        color: var(--gold);
+      }
+      .footer-heading {
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        position: relative;
+      }
+      .footer-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--gradient-gold);
+        border-radius: var(--border-radius-full);
+      }
+      .footer-links {
+        list-style: none;
+      }
+      .footer-links li {
+        margin-bottom: 15px;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+      .footer-links a:hover {
+        color: var(--gold);
+        transform: translateX(5px);
+      }
+      .footer-links i {
+        font-size: 0.8rem;
+        color: var(--gold);
+      }
+      .contact-info {
+        list-style: none;
+      }
+      .contact-info li {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .contact-info i {
+        color: var(--gold);
+        font-size: 1.1rem;
+        margin-top: 3px;
+      }
+      .footer-social {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .footer-social a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none;
+      }
+      .footer-social a:hover {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        transform: translateY(-5px) rotate(360deg);
+        border-color: transparent;
+      }
+      .footer-bottom-glass {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-full);
+        padding: 25px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .copyright {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+      .footer-bottom-links {
+        display: flex;
+        gap: 30px;
+      }
+      .footer-bottom-links a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+      .footer-bottom-links a:hover {
+        color: var(--gold);
+      }
+      .developer-credit {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+      .developer-credit span {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* ===== RESPONSIVE BREAKPOINTS – ABSOLUTELY METICULOUS ===== */
+      @media (max-width: 1200px) {
+        .flow-cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .physician-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .benefits-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .testimonial-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .concierge-assist {
+          grid-template-columns: 1fr;
+          gap: 50px;
+        }
+        .concierge-assist-image {
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .success-card {
+          flex-direction: column;
+          text-align: center;
+          padding: 40px 30px;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .appointment-hero-title {
+          font-size: 3.2rem;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-group-full {
+          grid-column: span 1;
+        }
+        .appointment-type-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .time-slots {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .physician-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .appointment-hero {
+          background-attachment: scroll;
+        }
+        .cta-appointment {
+          background-attachment: scroll;
+        }
+        .appointment-hero-title {
+          font-size: 2.6rem;
+        }
+        .appointment-hero-desc {
+          font-size: 1.1rem;
+        }
+        .section-header h2 {
+          font-size: 2.2rem;
+        }
+        .flow-cards {
+          grid-template-columns: 1fr;
+        }
+        .form-luxury-panel {
+          padding: 40px 30px;
+        }
+        .form-header h2 {
+          font-size: 2rem;
+        }
+        .appointment-type-grid {
+          grid-template-columns: 1fr;
+        }
+        .time-slots {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .physician-grid {
+          grid-template-columns: 1fr;
+        }
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+        .testimonial-grid {
+          grid-template-columns: 1fr;
+        }
+        .concierge-assist-content h2 {
+          font-size: 2rem;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom-glass {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+        }
+        .success-card {
+          padding: 30px 25px;
+        }
+        .success-icon {
+          width: 80px;
+          height: 80px;
+          font-size: 2.5rem;
+        }
+        .success-content h3 {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .appointment-hero-title {
+          font-size: 2rem;
+        }
+        .appointment-hero {
+          min-height: 360px;
+        }
+        .appointment-flow,
+        .appointment-form-section,
+        .physician-select-section,
+        .concierge-assist,
+        .testimonials-section {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+        .form-luxury-panel {
+          padding: 30px 20px;
+        }
+        .time-slots {
+          grid-template-columns: 1fr;
+        }
+        .btn-appointment {
+          padding: 18px 30px;
+          font-size: 1rem;
+        }
+        .concierge-assist-image img {
+          height: 300px;
+        }
+        .cta-inner h2 {
+          font-size: 2rem;
+        }
+        .btn-cta-gold {
+          padding: 16px 40px;
+          font-size: 1rem;
+        }
+        .footer-glass-panel {
+          padding: 40px 25px;
+        }
+        .success-message {
+          padding: 0 25px;
+        }
+      }
+
+      .active-appointment {
+        color: var(--primary) !important;
+        font-weight: 700;
+      }
+      .main-header.scrolled .active-appointment {
+        color: white !important;
+      }
+      .nav-links ul li a.active-appointment::after {
+        width: 70%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== SAME TOPBAR ===== -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="top-left">
+          <span>JCI ACCREDITED</span>
+          <span class="emergency-badge"
+            ><i class="fas fa-shield-alt"></i> LEVEL 1 TRAUMA CENTER</span
+          >
+        </div>
+        <div class="top-right">
+          <span><i class="fas fa-envelope"></i> concierge@stjohns.health</span>
+          <span><i class="fas fa-phone-alt"></i> +1 (800) 567-8900</span>
+          <div class="social-icons-mini">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== IDENTICAL HEADER (ACTIVE STATE SET TO APPOINTMENT) ===== -->
+    <header class="main-header" id="mainHeader">
+      <nav class="navbar">
+        <div class="nav-wrapper">
+          <input type="checkbox" id="check" />
+          <div
+            class="nav-overlay"
+            onclick="document.getElementById('check').checked = false"
+          ></div>
+
+          <label for="check" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+          </label>
+
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="img/waver-removebg-preview.png"
+                alt="St. John's Hospital Logo"
+              />
+              <div class="logo-text"></div>
+            </a>
+          </div>
+
+          <div class="nav-links">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="doctors.html">Doctors</a></li>
+              <li><a class="active-appointment" href="appointment.html">Appointment</a></li>
+              <li><a href="contact.html">Contact</a></li>
+               <li><a href="#" class="btn-primary">Patient Portal</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ===== SCROLL PROGRESS ===== -->
+    <div
+      class="progress-container"
+      id="progressContainer"
+      onclick="scrollToTop()"
+    >
+      <div class="progress-ring">
+        <div class="progress-ring-circle" id="progressRing"></div>
+        <div class="progress-content">
+          <i class="fas fa-arrow-up"></i>
+          <span id="progressPercentage">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 1. HERO – APPOINTMENT, FIXED BG ===== -->
+    <section class="appointment-hero reveal-section">
+      <div class="appointment-hero-content">
+        <span class="appointment-hero-sub">YOUR HEALTH, YOUR SCHEDULE</span>
+        <h1 class="appointment-hero-title">Care, when you need it.<br>Comfort, always.</h1>
+        <p class="appointment-hero-desc">
+          Book with any specialist in under 2 minutes. Virtual, in‑person, or concierge — we adapt to you.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 2. APPOINTMENT FLOW – LUXURY STEPPER ===== -->
+    <section class="appointment-flow reveal-section">
+      <div class="flow-cards">
+        <div class="flow-card reveal-delay-1">
+          <div class="flow-number">1</div>
+          <h3>Choose type</h3>
+          <p>In‑person, virtual, or second opinion</p>
+        </div>
+        <div class="flow-card reveal-delay-2">
+          <div class="flow-number">2</div>
+          <h3>Select physician</h3>
+          <p>180+ specialists, 47 subspecialties</p>
+        </div>
+        <div class="flow-card reveal-delay-3">
+          <div class="flow-number">3</div>
+          <h3>Pick time</h3>
+          <p>Real‑time availability · 48‑hour guarantee</p>
+        </div>
+        <div class="flow-card reveal-delay-4">
+          <div class="flow-number">4</div>
+          <h3>Confirm</h3>
+          <p>Instant confirmation · SMS & email</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SUCCESS MESSAGE – WARM, ELEGANT, ANIMATED ===== -->
+    <div class="success-message" id="successMessage">
+      <div class="success-card">
+        <div class="success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="success-content">
+          <h3>Your appointment is confirmed.</h3>
+          <p>Thank you for choosing St. John's. We look forward to caring for you.</p>
+          <div class="success-details">
+            <p><i class="fas fa-calendar-check"></i> <strong>Thursday, March 16, 2026</strong> at <strong>2:00 PM</strong></p>
+            <p><i class="fas fa-user-md"></i> With <strong>Dr. Sarah Chen</strong>, Cardiothoracic Surgery</p>
+            <p><i class="fas fa-map-marker-alt"></i> Main Campus, 250 Medical Center Drive, Boston</p>
+          </div>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <a href="#" class="btn-success"><i class="fas fa-calendar-plus"></i> Add to calendar</a>
+            <a href="#" class="btn-success"><i class="fas fa-envelope"></i> Email details</a>
+          </div>
+          <p style="margin-top: 25px; color: #64748b; font-size: 0.9rem;">
+            <i class="fas fa-clock" style="color: var(--gold);"></i> A confirmation has been sent to your email and SMS.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3. APPOINTMENT FORM – PEARL LUXURY PANEL ===== -->
+    <section class="appointment-form-section reveal-section" id="book">
+      <div class="form-luxury-panel" id="appointmentForm">
+        <div class="form-header">
+          <span class="section-tag">SECURE BOOKING</span>
+          <h2>Schedule your visit</h2>
+          <p>All fields are encrypted and HIPAA‑compliant</p>
+        </div>
+        
+        <form id="bookingForm">
+          <div class="form-grid">
+            <!-- Patient Information -->
+            <div class="form-group">
+              <label>Full name</label>
+              <i class="fas fa-user"></i>
+              <input type="text" id="fullName" placeholder="e.g. Jane Smith" required>
+            </div>
+            <div class="form-group">
+              <label>Date of birth</label>
+              <i class="fas fa-calendar-alt"></i>
+              <input type="date" id="dob" required>
+            </div>
+            <div class="form-group">
+              <label>Email address</label>
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Phone number</label>
+              <i class="fas fa-phone-alt"></i>
+              <input type="tel" id="phone" placeholder="+1 (800) 000-0000" required>
+            </div>
+            
+            <!-- Appointment Type Selection -->
+            <div class="form-group-full">
+              <div class="form-divider">
+                <span class="form-divider-line"></span>
+                <span><i class="fas fa-stethoscope" style="color: var(--gold);"></i> Appointment type</span>
+                <span class="form-divider-line"></span>
+              </div>
+              
+              <div class="appointment-type-grid">
+                <div class="appointment-type selected" data-type="inperson">
+                  <i class="fas fa-building"></i>
+                  <h4>In‑person</h4>
+                  <p>Main campus or satellite</p>
+                </div>
+                <div class="appointment-type" data-type="virtual">
+                  <i class="fas fa-laptop-medical"></i>
+                  <h4>Virtual visit</h4>
+                  <p>From home, any device</p>
+                </div>
+                <div class="appointment-type" data-type="second">
+                  <i class="fas fa-file-signature"></i>
+                  <h4>Second opinion</h4>
+                  <p>Records review + consult</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Department & Physician -->
+            <div class="form-group">
+              <label>Department</label>
+              <i class="fas fa-hospital"></i>
+              <select id="department" required>
+                <option value="" disabled selected>Select specialty</option>
+                <option>Cardiology</option>
+                <option>Neurosurgery</option>
+                <option>Oncology</option>
+                <option>Orthopedics</option>
+                <option>Pediatrics</option>
+                <option>Women's Health</option>
+                <option>Transplant</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred physician</label>
+              <i class="fas fa-user-md"></i>
+              <select id="physician">
+                <option value="" disabled selected>Any available specialist</option>
+                <option value="Dr. Sarah Chen">Dr. Sarah Chen · Cardiology</option>
+                <option value="Dr. Michael Roberts">Dr. Michael Roberts · Neurosurgery</option>
+                <option value="Dr. Elena Rodriguez">Dr. Elena Rodriguez · Oncology</option>
+                <option value="Dr. James Okonkwo">Dr. James Okonkwo · Orthopedics</option>
+                <option value="Dr. Lisa Wong">Dr. Lisa Wong · Pediatrics</option>
+              </select>
+            </div>
+            
+            <!-- Date -->
+            <div class="form-group">
+              <label>Preferred date</label>
+              <i class="fas fa-calendar-check"></i>
+              <input type="date" id="appointmentDate" required>
+            </div>
+            
+            <!-- Time slots – dynamically populated -->
+            <div class="form-group-full">
+              <div class="time-slots-container" id="timeSlotsContainer">
+                <div class="time-slots-label">
+                  <i class="fas fa-clock"></i>
+                  <span>Available time slots</span>
+                </div>
+                <div class="time-slots" id="timeSlots">
+                  <!-- Dynamically populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- ENHANCED NOTES FIELD – Beautiful, spacious, refined -->
+            <div class="form-group-full notes-field">
+              <div class="notes-label">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Reason for visit / Additional notes</span>
+              </div>
+              <textarea 
+                id="notes" 
+                class="enhanced-textarea" 
+                placeholder="Please share any symptoms, questions, or special requests... Your notes help us prepare for your visit."
+              ></textarea>
+              <div class="textarea-footer">
+                <span><i class="fas fa-info-circle"></i> Max 500 characters</span>
+                <span><i class="fas fa-lock"></i> Confidential</span>
+              </div>
+            </div>
+            
+            <!-- Insurance (optional) -->
+            <div class="form-group">
+              <label>Insurance provider</label>
+              <i class="fas fa-id-card"></i>
+              <input type="text" id="insurance" placeholder="e.g. Blue Cross, Aetna">
+            </div>
+            <div class="form-group">
+              <label>Member ID</label>
+              <i class="fas fa-hashtag"></i>
+              <input type="text" id="memberId" placeholder="Optional">
+            </div>
+          </div>
+          
+          <button type="submit" class="btn-appointment" id="submitBtn">
+            <i class="fas fa-calendar-check"></i> Confirm appointment
+            <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+          </button>
+          
+          <p style="text-align: center; margin-top: 30px; color: #64748B; font-size: 0.9rem;">
+            <i class="fas fa-lock" style="color: var(--gold); margin-right: 8px;"></i>
+            Your information is protected by 256‑bit encryption. No spam, ever.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== 4. PHYSICIAN SELECTION – PREMIUM CARDS ===== -->
+    <section class="physician-select-section reveal-section" id="physicians">
+      <div class="section-header">
+        <span class="section-tag">OUR EXPERTS</span>
+        <h2>Choose your physician</h2>
+        <p>Board‑certified, fellowship‑trained, and accepting new patients</p>
+      </div>
+      
+      <div class="physician-grid">
+        <div class="physician-card reveal-delay-1" data-physician="Dr. Sarah Chen">
+          <div class="physician-image">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dr. Sarah Chen">
+          </div>
+          <div class="physician-info">
+            <h3>Dr. Sarah Chen</h3>
+            <div class="physician-dept">Cardiothoracic Surgery</div>
+            <span class="physician-availability">⬤ Available today</span>
+          </div>
+        </div>
+        <div class="physician-card reveal-delay-2" data-physician="Dr. Michael Roberts">
+          <div class="physician-image">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dr. Michael Roberts">
+          </div>
+          <div class="physician-info">
+            <h3>Dr. Michael Roberts</h3>
+            <div class="physician-dept">Neurosurgery</div>
+            <span class="physician-availability">⬤ Available tomorrow</span>
+          </div>
+        </div>
+        <div class="physician-card reveal-delay-3" data-physician="Dr. Elena Rodriguez">
+          <div class="physician-image">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dr. Elena Rodriguez">
+          </div>
+          <div class="physician-info">
+            <h3>Dr. Elena Rodriguez</h3>
+            <div class="physician-dept">Medical Oncology</div>
+            <span class="physician-availability">⬤ Available today</span>
+          </div>
+        </div>
+        <div class="physician-card reveal-delay-4" data-physician="Dr. James Okonkwo">
+          <div class="physician-image">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dr. James Okonkwo">
+          </div>
+          <div class="physician-info">
+            <h3>Dr. James Okonkwo</h3>
+            <div class="physician-dept">Orthopedic Surgery</div>
+            <span class="physician-availability">⬤ Available today</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. CONCIERGE ASSISTANCE – LUXURY ===== -->
+    <section class="concierge-assist reveal-section">
+      <div class="concierge-assist-content">
+        <span class="section-tag">WHITE GLOVE SERVICE</span>
+        <h2>Need help scheduling?</h2>
+        <p>Our executive concierge team is standing by to assist with complex appointments, international travel, or urgent second opinions.</p>
+        <div class="concierge-benefits">
+          <div class="benefit-item">
+            <i class="fas fa-concierge-bell"></i>
+            <div class="benefit-text">
+              <strong>Dedicated coordinator</strong>
+              <span>Same‑human assistance from booking to follow‑up</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-language"></i>
+            <div class="benefit-text">
+              <strong>80+ languages</strong>
+              <span>On‑site and remote interpretation</span>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-plane-arrival"></i>
+            <div class="benefit-text">
+              <strong>International concierge</strong>
+              <span>Visa letters, airport transfer, lodging</span>
+            </div>
+          </div>
+        </div>
+        <a href="tel:+18005678900" style="display: inline-flex; align-items: center; gap: 15px; background: var(--primary); color: white; padding: 16px 38px; border-radius: var(--border-radius-full); text-decoration: none; font-weight: 700; margin-top: 30px; transition: var(--transition-bounce); box-shadow: var(--shadow-md);">
+          <i class="fas fa-headset"></i> Speak to concierge
+        </a>
+      </div>
+      <div class="concierge-assist-image">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="St. John's Concierge">
+        <div class="concierge-assist-badge">
+          <i class="fas fa-clock"></i> 24/7 · +1 (800) 567-8900
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. APPOINTMENT BENEFITS – ICON STRIP ===== -->
+    <section class="benefits-strip reveal-section">
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <i class="fas fa-bolt"></i>
+          <h4>48‑hour guarantee</h4>
+          <p>See a specialist within 2 business days</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h4>Instant confirmation</h4>
+          <p>Email, SMS, and calendar sync</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-shield-alt"></i>
+          <h4>HIPAA secure</h4>
+          <p>256‑bit encryption, zero spam</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-clock"></i>
+          <h4>24/7 rescheduling</h4>
+          <p>Change or cancel anytime, no fee</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. TESTIMONIALS – SOCIAL PROOF ===== -->
+    <section class="testimonials-section reveal-section">
+      <div class="section-header">
+        <span class="section-tag">PATIENT STORIES</span>
+        <h2>Trusted by thousands</h2>
+        <p>Real experiences from those who booked through our concierge</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card reveal-delay-1">
+          <div class="testimonial-quote">“</div>
+          <p class="testimonial-text">I booked a virtual second opinion with Dr. Chen and had my appointment within 24 hours. The form took less than 2 minutes — extraordinary.</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+            <div class="author-info">
+              <h4>Margaret W.</h4>
+              <p>Cardiology consult</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal-delay-2">
+          <div class="testimonial-quote">“</div>
+          <p class="testimonial-text">The international concierge arranged everything — from visa letter to hotel. I felt cared for before I even arrived.</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+            <div class="author-info">
+              <h4>Ahmed K.</h4>
+              <p>International patient</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal-delay-3">
+          <div class="testimonial-quote">“</div>
+          <p class="testimonial-text">I was able to choose my exact time slot and doctor. The whole process felt dignified, not like a typical hospital booking.</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+            <div class="author-info">
+              <h4>Rebecca L.</h4>
+              <p>Orthopedic surgery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. CTA – FIXED BACKGROUND ===== -->
+    <section class="cta-appointment reveal-section">
+      <div class="cta-inner">
+        <h2>Ready to prioritize your health?</h2>
+        <p>Join thousands who trust St. John's for compassionate, world‑class care.</p>
+        <a href="#book" class="btn-cta-gold">
+          <i class="fas fa-calendar-plus" style="margin-right: 12px;"></i> Book now, it's free
+        </a>
+        <div style="margin-top: 35px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+          <span style="color: rgba(255, 255, 255, 0.9);"><i class="fas fa-check-circle" style="color: var(--gold); margin-right: 8px;"></i> No credit card required</span>
+          <span style="color: rgba(255, 255, 255, 0.9);"><i class="fas fa-clock" style="color: var(--gold); margin-right: 8px;"></i> 2‑minute booking</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER – IDENTICAL ===== -->
+    <footer id="contact" class="footer reveal-section">
+      <div class="footer-glass-container">
+        <div class="footer-glass-panel">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="footer-logo">
+                <img src="./img/waver-removebg-preview.png" alt="St. John's" />
+                <div class="footer-logo-text"></div>
+              </div>
+              <p class="footer-description">
+                Setting the global standard for healthcare excellence since
+                1998. JCI-accredited, multi-specialty academic medical center
+                serving patients from over 80 countries.
+              </p>
+              <div class="accreditation-badges">
+                <span class="badge"><i class="fas fa-check-circle"></i> JCI</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> MAGNET</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> ISO 9001</span>
+              </div>
+              <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <div>
+              <h3 class="footer-heading">For Patients</h3>
+              <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Appointments</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Patient Portal</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Medical Records</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Insurance & Billing</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Visitor Information</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> International Services</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-heading">Centers of Excellence</h3>
+              <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Cardiovascular Institute</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Cancer Center</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Neuroscience Institute</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Orthopedics & Sports Medicine</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Women's Health</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Transplant Institute</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="footer-heading">Concierge</h3>
+              <ul class="contact-info">
+                <li><i class="fas fa-map-marker-alt"></i> 250 Medical Center Drive<br />Boston, MA 02114</li>
+                <li><i class="fas fa-phone-alt"></i> 24/7 Helpline: +1 (800) 567-8900</li>
+                <li><i class="fas fa-envelope"></i> concierge@stjohns.health</li>
+                <li><i class="fas fa-clock"></i> Mon-Fri: 8AM - 8PM<br />Sat-Sun: 9AM - 5PM</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-glass">
+          <div class="copyright">
+            <i class="far fa-copyright"></i> 2026 ST. JOHN'S MEDICAL CENTER. All
+            rights reserved.
+          </div>
+          <div class="footer-bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Accessibility</a>
+            <a href="#">HIPAA Notice</a>
+            <a href="#">Sitemap</a>
+          </div>
+          <div class="developer-credit">
+            Designed with <i class="fas fa-heart" style="color: #c6a43c;"></i> by
+            <span>STORMY-TECH</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== SHARED SCRIPTS ===== -->
+    <script>
+      // ===== SMART SCROLL NAVBAR =====
+      const header = document.getElementById("mainHeader");
+      const scrollProgress = () => {
+        if (window.scrollY > 50) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressContainer = document.getElementById("progressContainer");
+        const progressPercentage = document.getElementById("progressPercentage");
+        if (winScroll > 300) progressContainer.classList.add("show");
+        else progressContainer.classList.remove("show");
+        document.documentElement.style.setProperty("--progress", scrolled);
+        if (progressPercentage) progressPercentage.textContent = Math.round(scrolled) + "%";
+      };
+      window.addEventListener("scroll", scrollProgress);
+      window.addEventListener("load", scrollProgress);
+
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ===== REVEAL ON SCROLL =====
+      const revealSections = () => {
+        document.querySelectorAll(".reveal-section").forEach((section) => {
+          if (section.getBoundingClientRect().top < window.innerHeight - 100)
+            section.classList.add("revealed");
+        });
+      };
+      window.addEventListener("scroll", revealSections);
+      window.addEventListener("load", revealSections);
+
+      // ===== SMOOTH SCROLL FOR ANCHORS =====
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      // ===== CLOSE MOBILE MENU WHEN LINK CLICKED =====
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("check").checked = false;
+        });
+      });
+
+      // ===== DYNAMIC TIME SLOTS – INDEPENDENT SCHEDULES =====
+      // In-person slots
+      const inPersonSlots = [
+        "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
+        "11:00 AM", "1:00 PM", "1:30 PM", "2:00 PM",
+        "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM"
+      ];
+      
+      // Virtual visit slots
+      const virtualSlots = [
+        "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM",
+        "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM",
+        "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM",
+        "6:00 PM", "7:00 PM"
+      ];
+
+      // Second opinion slots (limited)
+      const secondOpinionSlots = [
+        "10:00 AM", "11:30 AM", "2:00 PM", "3:30 PM"
+      ];
+
+      // Current selected appointment type
+      let currentAppointmentType = "inperson";
+
+      // Function to render time slots
+      function renderTimeSlots(type) {
+        const container = document.getElementById("timeSlots");
+        if (!container) return;
+        
+        let slots = [];
+        if (type === "inperson") slots = inPersonSlots;
+        else if (type === "virtual") slots = virtualSlots;
+        else if (type === "second") slots = secondOpinionSlots;
+        
+        let html = "";
+        slots.forEach(slot => {
+          html += `<div class="time-slot">${slot}</div>`;
+        });
+        container.innerHTML = html;
+        
+        // Add click handlers to new time slots
+        container.querySelectorAll(".time-slot").forEach((el) => {
+          el.addEventListener("click", function() {
+            container.querySelectorAll(".time-slot").forEach(e => e.classList.remove("selected"));
+            this.classList.add("selected");
+          });
+        });
+      }
+
+      // Appointment type click handlers
+      document.querySelectorAll(".appointment-type").forEach((el) => {
+        el.addEventListener("click", function() {
+          document.querySelectorAll(".appointment-type").forEach(e => e.classList.remove("selected"));
+          this.classList.add("selected");
+          
+          // Get selected type and render appropriate time slots
+          const type = this.dataset.type;
+          currentAppointmentType = type;
+          renderTimeSlots(type);
+        });
+      });
+
+      // Physician card click – update form
+      document.querySelectorAll(".physician-card").forEach((card) => {
+        card.addEventListener("click", function() {
+          document.querySelectorAll(".physician-card").forEach(c => c.classList.remove("selected"));
+          this.classList.add("selected");
+          
+          const physicianName = this.dataset.physician;
+          const physicianSelect = document.getElementById("physician");
+          if (physicianSelect) {
+            for (let i = 0; i < physicianSelect.options.length; i++) {
+              if (physicianSelect.options[i].value === physicianName) {
+                physicianSelect.selectedIndex = i;
+                break;
+              }
+            }
+          }
+        });
+      });
+
+      // ===== FORM SUBMISSION – ELEGANT SUCCESS MESSAGE =====
+      const bookingForm = document.getElementById("bookingForm");
+      const successMessage = document.getElementById("successMessage");
+      const formPanel = document.getElementById("appointmentForm");
+
+      if (bookingForm) {
+        bookingForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+          
+          // Scroll to success message smoothly
+          successMessage.classList.add("show");
+          successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+          
+          // Dim the form to emphasize success
+          formPanel.classList.add("submitted");
+          
+          // Optional: Update success details with selected values
+          const successDetails = document.querySelector(".success-details");
+          if (successDetails) {
+            const physician = document.getElementById("physician").value || "Dr. Sarah Chen";
+            const date = document.getElementById("appointmentDate").value;
+            const timeSlot = document.querySelector(".time-slot.selected");
+            const timeText = timeSlot ? timeSlot.textContent : "2:00 PM";
+            
+            // Format date nicely
+            let formattedDate = "Thursday, March 16, 2026";
+            if (date) {
+              const d = new Date(date);
+              formattedDate = d.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              });
+            }
+            
+            successDetails.innerHTML = `
+              <p><i class="fas fa-calendar-check"></i> <strong>${formattedDate}</strong> at <strong>${timeText}</strong></p>
+              <p><i class="fas fa-user-md"></i> With <strong>${physician}</strong></p>
+              <p><i class="fas fa-map-marker-alt"></i> ${currentAppointmentType === 'virtual' ? 'Virtual visit · Link will be emailed' : 'Main Campus, 250 Medical Center Drive, Boston'}</p>
+            `;
+          }
+        });
+      }
+
+      // ===== INITIAL RENDER =====
+      document.addEventListener("DOMContentLoaded", function() {
+        renderTimeSlots("inperson");
+        
+        // Set default date to today + 3 days
+        const dateInput = document.getElementById("appointmentDate");
+        if (dateInput) {
+          const today = new Date();
+          today.setDate(today.getDate() + 3);
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const dd = String(today.getDate()).padStart(2, '0');
+          dateInput.value = `${yyyy}-${mm}-${dd}`;
+        }
+      });
+    </script>
+  </body>
+</html>

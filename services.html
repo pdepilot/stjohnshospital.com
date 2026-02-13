@@ -1,377 +1,1812 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <title>Our Services | ST. JOHN'S HOSPITAL</title>
+    <style>
+      /* ===== INHERIT FULL DESIGN SYSTEM ===== */
+      :root {
+        --primary: #0a2647;
+        --primary-light: #144272;
+        --secondary: #2c7be5;
+        --accent: #00b4d8;
+        --accent-soft: #9be7ff;
+        --gold: #c6a43c;
+        --gold-light: #f5e7b2;
+        --dark: #0b1c2f;
+        --darker: #07111e;
+        --light: #ffffff;
+        --light-bg: #f8fafc;
+        --glass: rgba(255, 255, 255, 0.2);
+        --glass-border: rgba(255, 255, 255, 0.15);
+        --glass-shadow: rgba(31, 38, 135, 0.1);
+        --text-dark: #1e293b;
+        --text-light: #f1f5f9;
+        --gradient-blue: linear-gradient(
+          145deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        --gradient-gold: linear-gradient(145deg, #c6a43c, #e6c873);
+        --gradient-accent: linear-gradient(
+          145deg,
+          var(--secondary),
+          var(--accent)
+        );
+        --shadow-sm: 0 10px 30px -10px rgba(2, 48, 71, 0.08);
+        --shadow-md: 0 20px 40px -15px rgba(2, 48, 71, 0.12);
+        --shadow-lg: 0 30px 60px -15px rgba(2, 48, 71, 0.15);
+        --shadow-gold: 0 15px 35px -10px rgba(198, 164, 60, 0.15);
+        --border-radius-sm: 12px;
+        --border-radius-md: 18px;
+        --border-radius-lg: 24px;
+        --border-radius-xl: 32px;
+        --border-radius-full: 999px;
+        --header-height: 100px;
+        --header-height-scroll: 70px;
+        --progress: 0;
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-gentle: all 0.3s ease;
+      }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/services.css">
-    <link rel="stylesheet" href="./fontawesome-free-6.4.0-web/css/all.css">
-    <link rel="shortcut icon" href="./img/LOGO.png" type="image/x-icon">
-    <title>Our Services - ST.John’s Hospital</title>
-</head>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-dark);
+        background-color: var(--light-bg);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
 
-<body>
+      /* reveal system */
+      .reveal-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .reveal-section.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.5s;
+      }
 
-    <!-- Top Bar -->
+      /* scroll progress */
+      .progress-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        z-index: 9997;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-gentle);
+      }
+      .progress-container.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      .progress-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+      }
+      .progress-ring:hover {
+        transform: scale(1.05);
+      }
+      .progress-ring-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: conic-gradient(
+          var(--gold) calc(var(--progress) * 1deg),
+          #e2e8f0 0deg
+        );
+        mask: radial-gradient(transparent 55%, black 56%);
+        -webkit-mask: radial-gradient(transparent 55%, black 56%);
+      }
+      .progress-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .progress-content i {
+        font-size: 16px;
+        margin-bottom: 2px;
+      }
+
+      /* navbar identical to index & about */
+      .main-header {
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        width: 100%;
+        transition: var(--transition-smooth);
+      }
+      .main-header.scrolled {
+        background: rgba(10, 38, 71, 0.95);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-lg);
+      }
+      .main-header.scrolled .nav-wrapper {
+        padding: 10px 40px;
+      }
+      .main-header.scrolled .logo img {
+        height: 50px;
+      }
+      .main-header.scrolled .logo-text h1 {
+        color: white;
+      }
+      .main-header.scrolled .nav-links ul li a:not(.btn-primary) {
+        color: var(--text-light);
+      }
+      .topbar {
+        background: var(--darker);
+        color: var(--text-light);
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .topbar-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+      }
+      .top-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .top-left span {
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent-soft);
+      }
+      .emergency-badge {
+        background: rgba(198, 164, 60, 0.15);
+        padding: 6px 14px;
+        border-radius: var(--border-radius-full);
+        border: 1px solid rgba(198, 164, 60, 0.3);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--gold-light);
+      }
+      .top-right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .top-right span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+      .top-right i {
+        color: var(--gold);
+      }
+      .social-icons-mini {
+        display: flex;
+        gap: 15px;
+      }
+      .social-icons-mini a {
+        color: var(--text-light);
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+      .social-icons-mini a:hover {
+        opacity: 1;
+        color: var(--gold);
+        transform: translateY(-2px);
+      }
+
+      .navbar {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .nav-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        transition: padding 0.3s ease;
+      }
+      .logo a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-decoration: none;
+      }
+      .logo img {
+        height: 70px;
+        width: auto;
+        transition: height 0.3s ease;
+      }
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+      }
+      .logo-text h1 {
+        font-size: 1.5rem;
+        color: var(--primary);
+        line-height: 1.2;
+        transition: color 0.3s ease;
+      }
+      .logo-text span {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* mobile menu */
+      #check {
+        display: none;
+      }
+      .menu-toggle {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: var(--primary);
+        transition: color 0.3s ease;
+        z-index: 10000;
+      }
+      .main-header.scrolled .menu-toggle {
+        color: white;
+      }
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 9997;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      @media (max-width: 992px) {
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 300px;
+          height: 100vh;
+          background: rgba(10, 38, 71, 0.98);
+          backdrop-filter: blur(16px);
+          box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+          transition: right 0.3s ease;
+          z-index: 9998;
+          padding: 100px 30px 40px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        #check:checked ~ .nav-links {
+          right: 0;
+        }
+        #check:checked ~ .nav-overlay {
+          display: block;
+          opacity: 1;
+          visibility: visible;
+        }
+        .nav-links ul {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          gap: 28px;
+          width: 100%;
+        }
+        .nav-links ul li a {
+          text-decoration: none;
+          color: white !important;
+          font-weight: 600;
+          font-size: 1.1rem;
+          display: inline-block;
+          width: 100%;
+        }
+        .nav-links ul li a::after {
+          content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--gradient-gold);
+          transition: width 0.3s ease;
+          border-radius: var(--border-radius-full);
+        }
+        .nav-links ul li a:hover::after,
+        .nav-links ul li a.active-services::after {
+          width: 40px;
+        }
+        .nav-links ul li a:hover,
+        .nav-links ul li a.active-services {
+          color: var(--gold-light) !important;
+        }
+        .nav-links ul li a.btn-primary {
+          background: var(--gradient-gold);
+          color: var(--darker) !important;
+          padding: 14px 28px !important;
+          border-radius: var(--border-radius-full);
+          width: auto;
+          text-align: center;
+        }
+        .nav-links ul li a.btn-primary::after {
+          display: none;
+        }
+        .menu-toggle {
+          display: block;
+        }
+      }
+      @media (min-width: 993px) {
+        .nav-links {
+          position: static;
+          right: auto;
+          width: auto;
+          height: auto;
+          background: transparent;
+          backdrop-filter: none;
+          box-shadow: none;
+          padding: 0;
+          overflow-y: visible;
+        }
+        .nav-links ul {
+          flex-direction: row;
+          align-items: center;
+          gap: 35px;
+        }
+        .nav-links ul li a {
+          color: var(--text-dark);
+          font-size: 0.95rem;
+        }
+        .main-header.scrolled .nav-links ul li a:not(.btn-primary) {
+          color: var(--text-light);
+        }
+      }
+      .nav-links ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        gap: 35px;
+      }
+      .nav-links ul li a {
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+        letter-spacing: 0.3px;
+      }
+      .nav-links ul li a::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--gradient-gold);
+        transition: width 0.3s ease;
+        border-radius: var(--border-radius-full);
+      }
+      .nav-links ul li a:hover::after,
+      .nav-links ul li a.active-services::after {
+        width: 70%;
+      }
+      .btn-primary {
+        background: var(--gradient-blue);
+        color: white !important;
+        padding: 12px 28px !important;
+        border-radius: var(--border-radius-full);
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease !important;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        background: var(--gradient-accent);
+      }
+      .btn-primary::after {
+        display: none !important;
+      }
+
+      /* ===== SERVICES PAGE SPECIFIC – PREMIUM, METICULOUS ===== */
+      /* Hero – fixed background, shorter, service-focused */
+      .services-hero {
+        position: relative;
+        height: 55vh;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        background:
+          linear-gradient(95deg, rgba(10, 38, 71, 0.92), rgba(7, 17, 30, 0.85)),
+          url("https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center 45%;
+        background-attachment: fixed;
+        margin-top: 0;
+        isolation: isolate;
+      }
+      .services-hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        color: white;
+        position: relative;
+        z-index: 5;
+        width: 100%;
+      }
+      .services-hero-sub {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: block;
+      }
+      .services-hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        font-family: "Playfair Display", serif;
+        max-width: 900px;
+      }
+      .services-hero-desc {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        max-width: 650px;
+        font-weight: 300;
+        margin-bottom: 15px;
+      }
+
+      /* Section headers – consistent */
+      .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+      .section-tag {
+        display: inline-block;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--gold);
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .section-header h2 {
+        font-size: 2.8rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+      .section-header p {
+        font-size: 1.1rem;
+        color: #475569;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* === 1. SERVICES NAVIGATION / PILLARS === */
+      .services-pillars {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 100px 40px 50px;
+      }
+      .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+      }
+      .pillar-card {
+        background: white;
+        padding: 35px 25px;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        position: relative;
+        overflow: hidden;
+      }
+      .pillar-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--gradient-gold);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+      .pillar-card:hover::before {
+        transform: scaleX(1);
+      }
+      .pillar-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+      }
+      .pillar-icon {
+        width: 85px;
+        height: 85px;
+        background: rgba(44, 123, 229, 0.08);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 2.2rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+      }
+      .pillar-card:hover .pillar-icon {
+        background: var(--gradient-blue);
+        color: white;
+      }
+      .pillar-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        color: var(--primary);
+      }
+      .pillar-card p {
+        color: #475569;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+      .pillar-link {
+        color: var(--gold);
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: gap 0.3s ease;
+      }
+      .pillar-link:hover {
+        gap: 12px;
+        color: var(--primary);
+      }
+
+      /* === 2. CLINICAL DEPARTMENTS – DETAILED GRID === */
+      .departments-section {
+        background: linear-gradient(145deg, #ffffff, #f9fcff);
+        padding: 80px 40px;
+        position: relative;
+      }
+      .departments-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+      }
+      .dept-card {
+        background: white;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.02);
+      }
+      .dept-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+      }
+      .dept-image {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+      }
+      .dept-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+      .dept-card:hover .dept-image img {
+        transform: scale(1.05);
+      }
+      .dept-content {
+        padding: 30px 25px 35px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .dept-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(198, 164, 60, 0.1);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 1.6rem;
+        color: var(--gold);
+        transition: all 0.3s ease;
+      }
+      .dept-card:hover .dept-icon {
+        background: var(--gradient-gold);
+        color: var(--darker);
+      }
+      .dept-content h3 {
+        font-size: 1.6rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+      .dept-desc {
+        color: #475569;
+        margin-bottom: 20px;
+        line-height: 1.7;
+      }
+      .dept-features {
+        list-style: none;
+        margin-top: auto;
+      }
+      .dept-features li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        color: #334155;
+        font-size: 0.95rem;
+      }
+      .dept-features i {
+        color: var(--gold);
+        font-size: 0.9rem;
+      }
+      .dept-link {
+        margin-top: 20px;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+        align-self: flex-start;
+      }
+      .dept-link:hover {
+        color: var(--gold);
+        gap: 12px;
+        border-bottom-color: var(--gold);
+      }
+
+      /* === 3. PATIENT SERVICES – SUPPORT & CONCIERGE === */
+      .patient-services {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 100px 40px;
+      }
+      .patient-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+      }
+      .patient-card {
+        background: white;
+        padding: 35px 25px;
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-gentle);
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.02);
+      }
+      .patient-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        background: white;
+      }
+      .patient-icon {
+        width: 70px;
+        height: 70px;
+        background: rgba(44, 123, 229, 0.05);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.8rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+      }
+      .patient-card:hover .patient-icon {
+        background: var(--gradient-blue);
+        color: white;
+      }
+      .patient-card h3 {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+      .patient-card p {
+        color: #475569;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+      .patient-badge {
+        display: inline-block;
+        background: rgba(198, 164, 60, 0.1);
+        padding: 6px 16px;
+        border-radius: var(--border-radius-full);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--gold);
+      }
+
+      /* === 4. INNOVATION & TECHNOLOGY === */
+      .innovation-section {
+        background: linear-gradient(145deg, #0a2647, #0b2b4a);
+        padding: 100px 40px;
+        color: white;
+      }
+      .innovation-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .innovation-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 60px;
+        align-items: center;
+      }
+      .innovation-content h2 {
+        font-size: 2.8rem;
+        color: white;
+        margin-bottom: 25px;
+      }
+      .innovation-content p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 30px;
+        line-height: 1.8;
+      }
+      .innovation-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+      }
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--gold);
+        font-family: "Playfair Display", serif;
+        line-height: 1.2;
+      }
+      .stat-label {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .innovation-image {
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        height: 450px;
+      }
+      .innovation-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .innovation-image:hover img {
+        transform: scale(1.02);
+      }
+
+      /* === 5. INTERNATIONAL SERVICES === */
+      .international-section {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 100px 40px;
+      }
+      .international-card {
+        background: linear-gradient(145deg, #ffffff, #f8fafc);
+        border-radius: var(--border-radius-xl);
+        padding: 60px;
+        box-shadow: var(--shadow-md);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        border: 1px solid rgba(198, 164, 60, 0.2);
+      }
+      .international-content h2 {
+        font-size: 2.4rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+      .international-features {
+        list-style: none;
+        margin: 30px 0;
+      }
+      .international-features li {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 18px;
+        font-size: 1.05rem;
+        color: #334155;
+      }
+      .international-features i {
+        color: var(--gold);
+        font-size: 1.2rem;
+        width: 24px;
+        text-align: center;
+      }
+      .btn-outline-gold {
+        background: transparent;
+        border: 2px solid var(--gold);
+        color: var(--primary);
+        padding: 14px 38px;
+        border-radius: var(--border-radius-full);
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-outline-gold:hover {
+        background: var(--gradient-gold);
+        border-color: transparent;
+        color: var(--darker);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-gold);
+      }
+
+      /* === 6. CTA SECTION – FIXED BACKGROUND === */
+      .cta-services {
+        position: relative;
+        background:
+          linear-gradient(95deg, rgba(10, 38, 71, 0.92), rgba(7, 17, 30, 0.9)),
+          url("https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center 30%;
+        background-attachment: fixed;
+        padding: 100px 40px;
+        text-align: center;
+        color: white;
+        isolation: isolate;
+      }
+      .cta-inner {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 5;
+      }
+      .cta-inner h2 {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 20px;
+      }
+      .cta-inner p {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        margin-bottom: 35px;
+      }
+      .btn-cta-gold {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        padding: 18px 52px;
+        border-radius: var(--border-radius-full);
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-gold);
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-cta-gold:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 45px -10px rgba(198, 164, 60, 0.5);
+      }
+
+      /* === FOOTER – IDENTICAL === */
+      .footer {
+        position: relative;
+        padding: 80px 40px 40px;
+        background: linear-gradient(145deg, #0b1e2b, #0a1820);
+        color: white;
+        overflow: hidden;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            circle at 20% 50%,
+            rgba(198, 164, 60, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(44, 123, 229, 0.03) 0%,
+            transparent 50%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.02) 0px,
+            rgba(255, 255, 255, 0.02) 1px,
+            transparent 1px,
+            transparent 10px
+          );
+        pointer-events: none;
+      }
+      .footer-glass-container {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .footer-glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-xl);
+        padding: 60px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        margin-bottom: 40px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 40px;
+      }
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .footer-logo img {
+        height: 60px;
+        filter: brightness(0) invert(1);
+      }
+      .footer-logo-text h2 {
+        font-size: 1.8rem;
+        color: white;
+      }
+      .footer-description {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+      }
+      .accreditation-badges {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .badge {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 16px;
+        border-radius: var(--border-radius-full);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .badge i {
+        color: var(--gold);
+      }
+      .footer-heading {
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        position: relative;
+      }
+      .footer-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--gradient-gold);
+        border-radius: var(--border-radius-full);
+      }
+      .footer-links {
+        list-style: none;
+      }
+      .footer-links li {
+        margin-bottom: 15px;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+      .footer-links a:hover {
+        color: var(--gold);
+        transform: translateX(5px);
+      }
+      .footer-links i {
+        font-size: 0.8rem;
+        color: var(--gold);
+      }
+      .contact-info {
+        list-style: none;
+      }
+      .contact-info li {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .contact-info i {
+        color: var(--gold);
+        font-size: 1.1rem;
+        margin-top: 3px;
+      }
+      .footer-social {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+      .footer-social a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none;
+      }
+      .footer-social a:hover {
+        background: var(--gradient-gold);
+        color: var(--darker);
+        transform: translateY(-5px) rotate(360deg);
+        border-color: transparent;
+      }
+      .footer-bottom-glass {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius-full);
+        padding: 25px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .copyright {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+      .footer-bottom-links {
+        display: flex;
+        gap: 30px;
+      }
+      .footer-bottom-links a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+      .footer-bottom-links a:hover {
+        color: var(--gold);
+      }
+      .developer-credit {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+      .developer-credit span {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* ===== RESPONSIVE BREAKPOINTS – METICULOUS ===== */
+      @media (max-width: 1200px) {
+        .pillars-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .departments-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .patient-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .innovation-grid {
+          grid-template-columns: 1fr;
+          gap: 50px;
+        }
+        .innovation-image {
+          height: 400px;
+          order: -1;
+        }
+        .international-card {
+          grid-template-columns: 1fr;
+          padding: 50px;
+        }
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 992px) {
+        .services-hero-title {
+          font-size: 3.2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .services-hero {
+          background-attachment: scroll;
+        }
+        .cta-services {
+          background-attachment: scroll;
+        }
+        .services-hero-title {
+          font-size: 2.6rem;
+        }
+        .services-hero-desc {
+          font-size: 1.1rem;
+        }
+        .section-header h2 {
+          font-size: 2.2rem;
+        }
+        .pillars-grid {
+          grid-template-columns: 1fr;
+        }
+        .departments-grid {
+          grid-template-columns: 1fr;
+        }
+        .patient-grid {
+          grid-template-columns: 1fr;
+        }
+        .innovation-content h2 {
+          font-size: 2.2rem;
+        }
+        .international-card {
+          padding: 40px 30px;
+        }
+        .international-content h2 {
+          font-size: 2rem;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom-glass {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .services-hero-title {
+          font-size: 2rem;
+        }
+        .services-hero {
+          min-height: 380px;
+        }
+        .services-pillars,
+        .departments-section,
+        .patient-services,
+        .innovation-section,
+        .international-section {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+        .cta-inner h2 {
+          font-size: 2.2rem;
+        }
+        .btn-cta-gold {
+          padding: 16px 40px;
+          font-size: 1rem;
+        }
+        .innovation-stats {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .footer-glass-panel {
+          padding: 40px 25px;
+        }
+      }
+
+      .active-services {
+        color: var(--primary) !important;
+        font-weight: 700;
+      }
+      .main-header.scrolled .active-services {
+        color: white !important;
+      }
+      .nav-links ul li a.active-services::after {
+        width: 70%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== SAME TOPBAR ===== -->
     <div class="topbar">
-        <div class="topbar-inner">
-            <div class="top-left">24/7 Open</div>
-            <div class="top-right">
-                <span><i class="fas fa-envelope"></i> info@emenikehospital.com</span>
-                <span class="phone"><i class="fas fa-phone"></i> +234818118930</span>
-                <div class="social-icons">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
+      <div class="topbar-inner">
+        <div class="top-left">
+          <span>JCI ACCREDITED</span>
+          <span class="emergency-badge"
+            ><i class="fas fa-shield-alt"></i> LEVEL 1 TRAUMA CENTER</span
+          >
         </div>
+        <div class="top-right">
+          <span><i class="fas fa-envelope"></i> concierge@stjohns.health</span>
+          <span><i class="fas fa-phone-alt"></i> +1 (800) 567-8900</span>
+          <div class="social-icons-mini">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- ===== IDENTICAL HEADER (ACTIVE STATE SET TO SERVICES) ===== -->
+    <header class="main-header" id="mainHeader">
+      <nav class="navbar">
+        <div class="nav-wrapper">
+          <input type="checkbox" id="check" />
+          <div
+            class="nav-overlay"
+            onclick="document.getElementById('check').checked = false"
+          ></div>
 
-    <header class="main-header">
-        <nav class="navbar">
-            <div class="nav-wrapper">
+          <label for="check" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+          </label>
 
-                <!-- Checkbox for mobile toggle -->
-                <input type="checkbox" id="check">
+          <div class="logo">
+            <a href="index.html">
+              <img
+                src="img/waver-removebg-preview.png"
+                alt="St. John's Hospital Logo"
+              />
+              <div class="logo-text"></div>
+            </a>
+          </div>
 
-                <!-- Hamburger -->
-                <label for="check" class="menu-toggle">
-                    <i class="fa-solid fa-bars"></i>
-                </label>
-
-                <!-- Logo -->
-                <div class="logo">
-                    <a href="./index.html">
-                        ST.
-                        <img src="./img/slazzer-preview-zdifu.png" alt="St. John's Hospital Logo">
-                        JOHN'S <span>Hospital</span>
-                    </a>
-                </div>
-
-                <!-- Navigation -->
-                <div class="nav-links">
-                    <ul>
-                        <li><a href="./index.html">Home</a></li>
-                        <li><a href="./about.html">About Us</a></li>
-                        <li><a class="active" href="./services.html">Services</a></li>
-                        <li><a href="./doctor.html">Doctors</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li>
-                            <a href="#" class="btn-primary">Book Appointment</a>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </nav>
+          <div class="nav-links">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a class="active-services" href="services.html">Services</a></li>
+              <li><a href="doctor.html">Doctors</a></li>
+              <li><a href="appointment.html">Appointment</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#" class="btn-primary">Patient Portal</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
 
-
-    <!-- HERO SECTION -->
-    <section class="about-hero">
-        <div class="slide-container">
-            <div class="hero-slide slide1">
-                <div class="hero-content">
-                    <h1>About Our Hospital</h1>
-                    <p>Delivering trusted healthcare with compassion, innovation, and excellence.</p>
-                </div>
-            </div>
-
-            <div class="hero-slide slide2">
-                <div class="hero-content">
-                    <h1>Patient-Centered Care</h1>
-                    <p>Every decision we make is guided by the needs and comfort of our patients.</p>
-                </div>
-            </div>
-
-            <div class="hero-slide slide3">
-                <div class="hero-content">
-                    <h1>Advanced Medical Expertise</h1>
-                    <p>Combining skilled professionals with modern medical technology.</p>
-                </div>
-            </div>
-
-            <div class="hero-slide slide4">
-                <div class="hero-content">
-                    <h1>Building Healthier Communities</h1>
-                    <p>Committed to improving lives through quality and accessible healthcare.</p>
-                </div>
-            </div>
+    <!-- ===== SCROLL PROGRESS ===== -->
+    <div
+      class="progress-container"
+      id="progressContainer"
+      onclick="scrollToTop()"
+    >
+      <div class="progress-ring">
+        <div class="progress-ring-circle" id="progressRing"></div>
+        <div class="progress-content">
+          <i class="fas fa-arrow-up"></i>
+          <span id="progressPercentage">0%</span>
         </div>
+      </div>
+    </div>
+
+    <!-- ===== 1. HERO – SERVICES FOCUS, FIXED BG ===== -->
+    <section class="services-hero reveal-section">
+      <div class="services-hero-content">
+        <span class="services-hero-sub">COMPREHENSIVE CARE</span>
+        <h1 class="services-hero-title">Medicine without boundaries</h1>
+        <p class="services-hero-desc">
+          Over 100 medical specialties and support services — integrated,
+          compassionate, and driven by the latest research.
+        </p>
+      </div>
     </section>
 
-
-
-    <!-- MEDICAL SERVICE SECTION -->
-
-    <section class="medical-service">
-        <div class="medical-header">
-            <h1>Our Comprehensive Medical Services</h1>
-            <p>At Emenike Hospital, we provide a complete range of medical specialties and <br> services to address all
-                your healthcare needs with excellence and compassion.</p>
+    <!-- ===== 2. SERVICE PILLARS – QUICK NAVIGATION ===== -->
+    <section class="services-pillars reveal-section" id="service-pillars">
+      <div class="section-header">
+        <span class="section-tag">OUR EXPERTISE</span>
+        <h2>Centers of Excellence</h2>
+        <p>Where world‑class specialization meets personalized care</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card reveal-section reveal-delay-1">
+          <div class="pillar-icon"><i class="fas fa-heartbeat"></i></div>
+          <h3>Cardiovascular</h3>
+          <p>Interventional cardiology, cardiac surgery, and vascular medicine</p>
+          <a href="#" class="pillar-link">Explore <i class="fas fa-arrow-right"></i></a>
         </div>
-
-        <div class="medical-container">
-            <div class="internal-medicine">
-                <h1>INTERNAL MEDICINE</h1>
-            </div>
-            <hr>
-            <div class="internal-medcine-description">
-                <p>
-                    Our Internal Medicine department provides comprehensive care for adult diseases, focusing on
-                    prevention, diagnosis, and treatment of complex medical <br> conditions
-                </p>
-                <h2><i class="fa-solid fa-stethoscope"></i>
-                    Medical Specialties</h2>
-            </div>
+        <div class="pillar-card reveal-section reveal-delay-2">
+          <div class="pillar-icon"><i class="fas fa-brain"></i></div>
+          <h3>Neurosciences</h3>
+          <p>Brain tumors, stroke, spine surgery, and neuro‑critical care</p>
+          <a href="#" class="pillar-link">Explore <i class="fas fa-arrow-right"></i></a>
         </div>
-
-        <!-- SERVICES CONTAINER -->
-
-        <div class="service-container">
-            <div class="service-card">
-                <i class="fa-solid fa-droplet"></i>
-                <h4>Hematology</h4>
-            </div>
-            <div class="service-card">
-                <i class="fa-solid fa-hand-sparkles"></i>
-                <h4>Dermatology</h4>
-            </div>
-            <div class="service-card">
-                <i class="fa-solid fa-brain"></i>
-                <h4>Neurology</h4>
-            </div>
+        <div class="pillar-card reveal-section reveal-delay-3">
+          <div class="pillar-icon"><i class="fas fa-ribbon"></i></div>
+          <h3>Oncology</h3>
+          <p>Precision medicine, immunotherapy, and survivorship programs</p>
+          <a href="#" class="pillar-link">Explore <i class="fas fa-arrow-right"></i></a>
         </div>
-
-
-
-
-        <div class="service-container">
-            <div class="service-card">
-                <i class="fa-solid fa-kidneys"></i>
-                <h4>Nephrology</h4>
-            </div>
-            <div class="service-card">
-                <i class="fa-solid fa-heart-pulse"></i>
-                <h4>Cardiology</h4>
-            </div>
-            <div class="service-card">
-                <i class="fa-solid fa-stomach"></i>
-                <h4>Gastroenterology</h4>
-            </div>
+        <div class="pillar-card reveal-section reveal-delay-4">
+          <div class="pillar-icon"><i class="fas fa-bone"></i></div>
+          <h3>Orthopedics</h3>
+          <p>Joint replacement, sports medicine, and spine rehabilitation</p>
+          <a href="#" class="pillar-link">Explore <i class="fas fa-arrow-right"></i></a>
         </div>
-
-
-
-
-        <div class="service-container">
-            <div class="service-card">
-                <i class="fa-solid fa-truck-medical"></i>
-                <h4>Critical Care Medicine</h4>
-            </div>
-
-            <div class="service-card">
-                <i class="fa-solid fa-dna"></i>
-                <h4>Endocrinology</h4>
-            </div>
-
-            <div class="service-card">
-                <i class="fa-solid fa-bone"></i>
-                <h4>Rheumatology</h4>
-            </div>
-
-        </div>
-
-        <!-- INTERNAL MEDICINE SECTION -->
-
-        <div class="internal-medicine-section">
-            <div class="section-title">
-                <h1>SURGERY</h1>
-            </div>
-
-            <hr>
-
-            <div class="section-description">
-                <p>
-                    Our Surgical Department offers advanced surgical interventions across multiple specialties,
-                    utilizing state-of-the-art technology and minimally invasive techniques for optimal patient
-                    outcomes.
-                </p>
-                <h2><i class="fa-solid fa-user-doctor"></i>
-                    Surgical Specialties</h2>
-            </div>
-        </div>
-
-        <!--SPECIALTY ROW  -->
-
-        <div class="specialty-row">
-            <div class="specialty-card">
-                <i class="fa-solid fa-toilet"></i>
-                <h4>Urology</h4>
-            </div>
-            <div class="specialty-card">
-                <i class="fa-solid fa-heart"></i>
-                <h4>Cardiothoracic Surgery</h4>
-            </div>
-            <div class="specialty-card">
-                <i class="fa-solid fa-child"></i>
-                <h4>Pediatric Surgery</h4>
-            </div>
-        </div>
-
-
-        <div class="specialty-row">
-            <div class="specialty-card">
-                <i class="fa-solid fa-scalpel"></i>
-                <h4>General Surgery</h4>
-            </div>
-            <div class="specialty-card">
-                <i class="fa-solid fa-bone"></i>
-                <h4>Orthopedic Surgery</h4>
-            </div>
-            <div class="specialty-card">
-                <i class="fa-solid fa-brain"></i>
-                <h4>Neurosurgery</h4>
-            </div>
-        </div>
-
-
-        <div class="specialty-row">
-            <div class="specialty-card">
-                <i class="fa-solid fa-user"></i>
-                <h4>Plastic Surgery</h4>
-            </div>
-            <div class="specialty-card">
-                <i class="fa-solid fa-baby"></i>
-                <h4>Obstetrics</h4>
-            </div>
-            <div class="specialty-card">
-                <i class="fa-solid fa-venus"></i>
-                <h4>Gynecology</h4>
-            </div>
-        </div>
-
-
-        <!-- OTHER SERVICES SECTION -->
-
-        <div class="other-services-section">
-            <div class="section-header">
-                <h1>OTHER SERVICES</h1>
-            </div>
-
-            <hr>
-
-            <div class="section-intro">
-                <p>
-                    Beyond our specialized medical departments, we offer comprehensive support services to ensure
-                    complete patient care and convenience throughout your healthcare journey.
-                </p>
-                <h2>
-                    <i class="fa-solid fa-clinic-medical"></i>
-                    Clinical & Support
-                </h2>
-            </div>
-        </div>
-
-        <!--  -->
-
-        <div class="service-row">
-            <div class="service-item">
-                <i class="fa-solid fa-user-doctor"></i>
-                <h4>GOPD (General Outpatient Department)</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-eye"></i>
-                <h4>Optometry</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-vials"></i>
-                <h4>Laboratory Services</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-pills"></i>
-                <h4>Pharmacy</h4>
-            </div>
-        </div>
-
-
-        <div class="service-row">
-            <div class="service-item">
-                <i class="fa-solid fa-procedures"></i>
-                <h4>ICU & NICU</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-x-ray"></i>
-                <h4>Radiology</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-droplet"></i>
-                <h4>Blood Bank</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-person-walking"></i>
-                <h4>Physiotherapy</h4>
-            </div>
-        </div>
-
-
-        <div class="service-row">
-            <div class="service-item">
-                <i class="fa-solid fa-ambulance"></i>
-                <h4>A & E Services (Accident & Emergency)</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-dna"></i>
-                <h4>IVF (In Vitro Fertilization)</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-syringe"></i>
-                <h4>Immunization</h4>
-            </div>
-            <div class="service-item">
-                <i class="fa-solid fa-filter"></i>
-                <h4>Dialysis</h4>
-            </div>
-        </div>
+      </div>
     </section>
 
+    <!-- ===== 3. CLINICAL DEPARTMENTS – DETAILED GRID ===== -->
+    <section class="departments-section reveal-section" id="departments">
+      <div class="section-header">
+        <span class="section-tag">CLINICAL EXCELLENCE</span>
+        <h2>Medical & surgical departments</h2>
+        <p>Internationally recognized programs with outcomes in the top 1%</p>
+      </div>
+      <div class="departments-grid">
+        <!-- Department 1 -->
+        <div class="dept-card reveal-section reveal-delay-1">
+          <div class="dept-image">
+            <img src="https://images.unsplash.com/photo-1628348070889-cb656235b4eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cardiac surgery">
+          </div>
+          <div class="dept-content">
+            <div class="dept-icon"><i class="fas fa-heart"></i></div>
+            <h3>Cardiovascular Institute</h3>
+            <p class="dept-desc">Nationally ranked for heart surgery and interventional cardiology. 3,500+ open-heart surgeries performed.</p>
+            <ul class="dept-features">
+              <li><i class="fas fa-check-circle"></i> Hybrid operating suites</li>
+              <li><i class="fas fa-check-circle"></i> Structural heart program</li>
+              <li><i class="fas fa-check-circle"></i> Advanced heart failure</li>
+            </ul>
+            <a href="#" class="dept-link">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Department 2 -->
+        <div class="dept-card reveal-section reveal-delay-2">
+          <div class="dept-image">
+            <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Neurosurgery">
+          </div>
+          <div class="dept-content">
+            <div class="dept-icon"><i class="fas fa-brain"></i></div>
+            <h3>Neuroscience Institute</h3>
+            <p class="dept-desc">Comprehensive care for complex neurological disorders. Level 4 epilepsy center.</p>
+            <ul class="dept-features">
+              <li><i class="fas fa-check-circle"></i> Awake craniotomy</li>
+              <li><i class="fas fa-check-circle"></i> Deep brain stimulation</li>
+              <li><i class="fas fa-check-circle"></i> Stroke & neurovascular</li>
+            </ul>
+            <a href="#" class="dept-link">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Department 3 -->
+        <div class="dept-card reveal-section reveal-delay-3">
+          <div class="dept-image">
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cancer care">
+          </div>
+          <div class="dept-content">
+            <div class="dept-icon"><i class="fas fa-ribbon"></i></div>
+            <h3>Cancer Center</h3>
+            <p class="dept-desc">NCI‑designated, offering CAR T‑cell therapy and 200+ clinical trials.</p>
+            <ul class="dept-features">
+              <li><i class="fas fa-check-circle"></i> Proton therapy</li>
+              <li><i class="fas fa-check-circle"></i> Onco‑genetics</li>
+              <li><i class="fas fa-check-circle"></i> Integrative oncology</li>
+            </ul>
+            <a href="#" class="dept-link">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Department 4 -->
+        <div class="dept-card reveal-section reveal-delay-4">
+          <div class="dept-image">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Orthopedic surgery">
+          </div>
+          <div class="dept-content">
+            <div class="dept-icon"><i class="fas fa-bone"></i></div>
+            <h3>Orthopedic Institute</h3>
+            <p class="dept-desc">Joint preservation, robotic‑assisted replacement, and elite sports medicine.</p>
+            <ul class="dept-features">
+              <li><i class="fas fa-check-circle"></i> MAKO robotic arm</li>
+              <li><i class="fas fa-check-circle"></i> Cartilage restoration</li>
+              <li><i class="fas fa-check-circle"></i> Pediatric orthopedics</li>
+            </ul>
+            <a href="#" class="dept-link">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Department 5 -->
+        <div class="dept-card reveal-section reveal-delay-5">
+          <div class="dept-image">
+            <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Maternity">
+          </div>
+          <div class="dept-content">
+            <div class="dept-icon"><i class="fas fa-baby"></i></div>
+            <h3>Women & Children</h3>
+            <p class="dept-desc">Level IV NICU, high‑risk obstetrics, and fetal surgery program.</p>
+            <ul class="dept-features">
+              <li><i class="fas fa-check-circle"></i> 24/7 neonatology</li>
+              <li><i class="fas fa-check-circle"></i> Midwifery care</li>
+              <li><i class="fas fa-check-circle"></i> Pediatric subspecialties</li>
+            </ul>
+            <a href="#" class="dept-link">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Department 6 -->
+        <div class="dept-card reveal-section reveal-delay-1">
+          <div class="dept-image">
+            <img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Transplant">
+          </div>
+          <div class="dept-content">
+            <div class="dept-icon"><i class="fas fa-kidney"></i></div>
+            <h3>Transplant Institute</h3>
+            <p class="dept-desc">Liver, kidney, pancreas, and heart transplant. 98% one‑year survival.</p>
+            <ul class="dept-features">
+              <li><i class="fas fa-check-circle"></i> Living donor program</li>
+              <li><i class="fas fa-check-circle"></i> Multi‑organ transplant</li>
+              <li><i class="fas fa-check-circle"></i> Transplant immunology</li>
+            </ul>
+            <a href="#" class="dept-link">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- ===== 4. PATIENT SUPPORT SERVICES ===== -->
+    <section class="patient-services reveal-section" id="patient-support">
+      <div class="section-header">
+        <span class="section-tag">BEYOND MEDICINE</span>
+        <h2>Complete patient support</h2>
+        <p>Care that extends from diagnosis through healing</p>
+      </div>
+      <div class="patient-grid">
+        <div class="patient-card reveal-section reveal-delay-1">
+          <div class="patient-icon"><i class="fas fa-language"></i></div>
+          <h3>Medical Concierge</h3>
+          <p>Dedicated coordinators for international and VIP patients</p>
+          <span class="patient-badge">24/7 availability</span>
+        </div>
+        <div class="patient-card reveal-section reveal-delay-2">
+          <div class="patient-icon"><i class="fas fa-truck-medical"></i></div>
+          <h3>Medical Transport</h3>
+          <p>Air and ground ambulance, bedside‑to‑bedside coordination</p>
+          <span class="patient-badge">Global reach</span>
+        </div>
+        <div class="patient-card reveal-section reveal-delay-3">
+          <div class="patient-icon"><i class="fas fa-hand-holding-usd"></i></div>
+          <h3>Financial Navigation</h3>
+          <p>Insurance verification, cost estimates, payment assistance</p>
+          <span class="patient-badge">50+ insurers</span>
+        </div>
+        <div class="patient-card reveal-section reveal-delay-4">
+          <div class="patient-icon"><i class="fas fa-home"></i></div>
+          <h3>Lodging & Hospitality</h3>
+          <p>On‑site family suites and partner hotel discounts</p>
+          <span class="patient-badge">Complimentary WiFi</span>
+        </div>
+      </div>
+    </section>
 
+    <!-- ===== 5. INNOVATION & TECHNOLOGY ===== -->
+    <section class="innovation-section reveal-section" id="innovation">
+      <div class="innovation-container">
+        <div class="innovation-grid">
+          <div class="innovation-content">
+            <span class="section-tag" style="color: var(--gold-light);">TECHNOLOGY</span>
+            <h2>Pioneering the future of medicine</h2>
+            <p>St. John’s invests $120M+ annually in research and cutting‑edge technology. From AI‑assisted diagnostics to robotic microsurgery, we bring tomorrow’s innovations to your bedside today.</p>
+            <div class="innovation-stats">
+              <div class="stat-item">
+                <span class="stat-number">7</span>
+                <span class="stat-label">Da Vinci XI robots</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">4</span>
+                <span class="stat-label">3T MRI scanners</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">300+</span>
+                <span class="stat-label">Active clinical trials</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">0.8mm</span>
+                <span class="stat-label">Microsurgery precision</span>
+              </div>
+            </div>
+            <a href="#" style="color: white; border-color: white; margin-top: 30px;" class="btn-outline-gold">Explore innovation</a>
+          </div>
+          <div class="innovation-image">
+            <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Robotic surgery">
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- MEDICAL SPECIALTIES -->
-    <section class="medical-specialties">
-        <div class="medical-activity">
+    <!-- ===== 6. INTERNATIONAL SERVICES ===== -->
+    <section class="international-section reveal-section" id="international">
+      <div class="international-card">
+        <div class="international-content">
+          <span class="section-tag" style="color: var(--gold);">GLOBAL HEALTH</span>
+          <h2>International patient services</h2>
+          <p style="font-size: 1.1rem; color: #334155; margin-bottom: 20px;">Patients from over 80 countries choose St. John's. Our multilingual team assists with every step.</p>
+          <ul class="international-features">
+            <li><i class="fas fa-passport"></i> Visa assistance & medical travel</li>
+            <li><i class="fas fa-translate"></i> Interpreters in 40+ languages</li>
+            <li><i class="fas fa-plane-arrival"></i> Airport pickup & transfer</li>
+            <li><i class="fas fa-file-medical-alt"></i> Remote second opinions</li>
+          </ul>
+          <a href="#" class="btn-outline-gold">International concierge</a>
+        </div>
+        <div style="text-align: center;">
+          <i class="fas fa-globe-americas" style="font-size: 12rem; color: rgba(198, 164, 60, 0.1);"></i>
+          <div style="margin-top: 20px;">
+            <span style="font-size: 2.5rem; font-weight: 800; color: var(--primary); display: block;">80+</span>
+            <span style="color: #475569;">Countries served</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- ===== 7. CTA – FIXED BACKGROUND ===== -->
+    <section class="cta-services reveal-section">
+      <div class="cta-inner">
+        <h2>Find the care you need</h2>
+        <p>Speak with a specialist, schedule a diagnostic, or request a second opinion — often within 48 hours.</p>
+        <a href="#" class="btn-cta-gold">📅 Request an appointment</a>
+        <div style="margin-top: 35px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+          <span style="color: rgba(255, 255, 255, 0.9);"><i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 10px;"></i> +1 (800) 567-8900</span>
+          <span style="color: rgba(255, 255, 255, 0.9);"><i class="fas fa-video" style="color: var(--gold); margin-right: 10px;"></i> Virtual consultations</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER – EXACT COPY ===== -->
+    <footer id="contact" class="footer reveal-section">
+      <div class="footer-glass-container">
+        <div class="footer-glass-panel">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="footer-logo">
+                <img src="./img/waver-removebg-preview.png" alt="St. John's" />
+                <div class="footer-logo-text"></div>
+              </div>
+              <p class="footer-description">
+                Setting the global standard for healthcare excellence since
+                1998. JCI-accredited, multi-specialty academic medical center
+                serving patients from over 80 countries.
+              </p>
+              <div class="accreditation-badges">
+                <span class="badge"><i class="fas fa-check-circle"></i> JCI</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> MAGNET</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> ISO 9001</span>
+              </div>
+              <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
             <div>
-                <h1>Advanced Surgical Services</h1>
-                <p>Our state-of-the-art surgical facilities are equipped with the latest technology and staffed by
-                    highly skilled surgeons. We perform a wide range of surgical procedures with precision and care.
-                </p>
-
-                <p>Minimally invasive procedures for faster recovery</p>
-                <p>Robotic-assisted surgery for enhanced precision</p>
-                <p>24/7 emergency surgical services</p>
-                <p>Post-operative care and rehabilitation</p>
-                <p>Advanced anesthesia and pain manageme</p>
-
-                <div>
-                    <a href="">View Surgical Specialties</a>
-                </div>
+              <h3 class="footer-heading">For Patients</h3>
+              <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Appointments</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Patient Portal</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Medical Records</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Insurance & Billing</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Visitor Information</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> International Services</a></li>
+              </ul>
             </div>
-
-
             <div>
-                <img height="100%" width="100%" src="./img/operation.png" alt="surgical activity">
+              <h3 class="footer-heading">Centers of Excellence</h3>
+              <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Cardiovascular Institute</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Cancer Center</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Neuroscience Institute</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Orthopedics & Sports Medicine</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Women's Health</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right"></i> Transplant Institute</a></li>
+              </ul>
             </div>
-
+            <div>
+              <h3 class="footer-heading">Concierge</h3>
+              <ul class="contact-info">
+                <li><i class="fas fa-map-marker-alt"></i> 250 Medical Center Drive<br />Boston, MA 02114</li>
+                <li><i class="fas fa-phone-alt"></i> 24/7 Helpline: +1 (800) 567-8900</li>
+                <li><i class="fas fa-envelope"></i> concierge@stjohns.health</li>
+                <li><i class="fas fa-clock"></i> Mon-Fri: 8AM - 8PM<br />Sat-Sun: 9AM - 5PM</li>
+              </ul>
+            </div>
+          </div>
         </div>
+        <div class="footer-bottom-glass">
+          <div class="copyright">
+            <i class="far fa-copyright"></i> 2026 ST. JOHN'S MEDICAL CENTER. All
+            rights reserved.
+          </div>
+          <div class="footer-bottom-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Accessibility</a>
+            <a href="#">HIPAA Notice</a>
+            <a href="#">Sitemap</a>
+          </div>
+          <div class="developer-credit">
+            Designed with <i class="fas fa-heart" style="color: #c6a43c;"></i> by
+            <span>STORMY-TECH</span>
+          </div>
+        </div>
+      </div>
+    </footer>
 
+    <!-- ===== SHARED SCRIPTS ===== -->
+    <script>
+      // SMART SCROLL NAVBAR
+      const header = document.getElementById("mainHeader");
+      const scrollProgress = () => {
+        if (window.scrollY > 50) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
 
-    </section>
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressContainer = document.getElementById("progressContainer");
+        const progressPercentage = document.getElementById("progressPercentage");
+        if (winScroll > 300) progressContainer.classList.add("show");
+        else progressContainer.classList.remove("show");
+        document.documentElement.style.setProperty("--progress", scrolled);
+        if (progressPercentage) progressPercentage.textContent = Math.round(scrolled) + "%";
+      };
+      window.addEventListener("scroll", scrollProgress);
+      window.addEventListener("load", scrollProgress);
 
-</body>
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
 
+      // REVEAL ON SCROLL
+      const revealSections = () => {
+        document.querySelectorAll(".reveal-section").forEach((section) => {
+          if (section.getBoundingClientRect().top < window.innerHeight - 100)
+            section.classList.add("revealed");
+        });
+      };
+      window.addEventListener("scroll", revealSections);
+      window.addEventListener("load", revealSections);
+
+      // SMOOTH SCROLL FOR ANCHORS
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      // CLOSE MOBILE MENU WHEN LINK CLICKED
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("check").checked = false;
+        });
+      });
+    </script>
+  </body>
 </html>
