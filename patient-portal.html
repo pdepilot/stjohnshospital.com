@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MyChart · St. John's Patient Portal</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./CSS/patient-portal.css">
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon (placeholder) -->
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+</head>
+<body>
+  <!-- ===== ENTERPRISE PATIENT PORTAL ===== -->
+  <!-- ARIA LANDMARKS FOR ACCESSIBILITY -->
+  <div class="portal-container" id="portalContainer">
+    
+    <!-- === SIDEBAR – COLLAPSIBLE, ENTERPRISE === -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar-inner">
+        
+        <!-- Logo Area -->
+        <div class="sidebar-header">
+          <div class="logo-container">
+            <div class="logo-icon">
+              <i class="fas fa-shield-heart"></i>
+            </div>
+            <div class="logo-text">
+              <span class="logo-title">St. John's</span>
+              <span class="logo-sub">Patient Portal</span>
+            </div>
+          </div>
+          <button class="sidebar-collapse-btn" id="sidebarToggle" aria-label="Collapse sidebar">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
+        
+        <!-- Patient Brief (visible when expanded) -->
+        <div class="sidebar-patient-brief">
+          <div class="patient-avatar">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+          </div>
+          <div class="patient-brief-info">
+            <span class="patient-name">Eleanor Vance</span>
+            <span class="patient-id">ID: MR-784-5921</span>
+          </div>
+        </div>
+        
+        <!-- Primary Navigation -->
+        <nav class="sidebar-nav" aria-label="Main menu">
+          <ul class="nav-list">
+            <li class="nav-item active">
+              <a href="#dashboard" class="nav-link">
+                <i class="fas fa-chart-pie"></i>
+                <span class="nav-label">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#appointments" class="nav-link">
+                <i class="fas fa-calendar-check"></i>
+                <span class="nav-label">Appointments</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#medical-records" class="nav-link">
+                <i class="fas fa-folder-medical"></i>
+                <span class="nav-label">Medical Records</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#lab-results" class="nav-link">
+                <i class="fas fa-flask"></i>
+                <span class="nav-label">Lab & Diagnostics</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#prescriptions" class="nav-link">
+                <i class="fas fa-prescription-bottle"></i>
+                <span class="nav-label">Prescriptions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#billing" class="nav-link">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span class="nav-label">Billing & Insurance</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#messages" class="nav-link">
+                <i class="fas fa-envelope"></i>
+                <span class="nav-label">Secure Messages</span>
+                <span class="badge">3</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#documents" class="nav-link">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-label">Documents</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#profile" class="nav-link">
+                <i class="fas fa-user-circle"></i>
+                <span class="nav-label">Profile & Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
+        <!-- Logout Section (Bottom) -->
+        <div class="sidebar-footer">
+          <a href="#logout" class="logout-link" id="logoutTrigger">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-label">Logout</span>
+          </a>
+          <div class="session-timer">
+            <i class="fas fa-clock"></i>
+            <span>Session: 14:32</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- === SIDEBAR OVERLAY (MOBILE) === -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- === MAIN CONTENT AREA === -->
+    <main class="main-content" id="mainContent">
+      
+      <!-- === STICKY TOP NAVIGATION BAR === -->
+      <header class="top-nav" id="topNav">
+        <div class="nav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="page-title">
+            <h1>Dashboard</h1>
+            <span class="page-subtitle">Welcome back, Eleanor</span>
+          </div>
+        </div>
+        
+        <div class="nav-right">
+          <!-- Global Search -->
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="search" class="global-search" placeholder="Search appointments, records, doctors...">
+            <span class="search-shortcut">⌘K</span>
+          </div>
+          
+          <!-- Secure Connection Badge -->
+          <div class="secure-badge">
+            <i class="fas fa-lock"></i>
+            <span class="badge-text">HIPAA Compliant Portal</span>
+          </div>
+          
+          <!-- Notification Center -->
+          <div class="notification-dropdown">
+            <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+            <div class="notification-menu" id="notificationMenu">
+              <div class="notification-header">
+                <h3>Notifications</h3>
+                <a href="#">Mark all as read</a>
+              </div>
+              <ul class="notification-list">
+                <li class="notification-item unread">
+                  <i class="fas fa-flask"></i>
+                  <div class="notification-content">
+                    <p>Your lab results are ready</p>
+                    <span class="time">5 min ago</span>
+                  </div>
+                </li>
+                <li class="notification-item">
+                  <i class="fas fa-prescription"></i>
+                  <div class="notification-content">
+                    <p>Prescription refill approved</p>
+                    <span class="time">2 hours ago</span>
+                  </div>
+                </li>
+                <li class="notification-item unread">
+                  <i class="fas fa-calendar"></i>
+                  <div class="notification-content">
+                    <p>Appointment reminder: Dr. Chen</p>
+                    <span class="time">Tomorrow at 2:00 PM</span>
+                  </div>
+                </li>
+              </ul>
+              <div class="notification-footer">
+                <a href="#">View all notifications</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dark Mode Toggle -->
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+          
+          <!-- Patient Profile Dropdown -->
+          <div class="profile-dropdown">
+            <button class="profile-btn" id="profileBtn">
+              <div class="profile-avatar-small">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Patient">
+              </div>
+              <span class="profile-name">Eleanor V.</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu" id="profileMenu">
+              <ul>
+                <li><a href="#profile"><i class="fas fa-user"></i> My Profile</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#security"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li class="divider"></li>
+                <li><a href="#help"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                <li><a href="#logout" id="profileLogout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- === SCROLLABLE DASHBOARD CONTENT === -->
+      <div class="dashboard-content" id="dashboardContent">
+        
+        <!-- === PATIENT SUMMARY WIDGET (TOP) === -->
+        <section class="dashboard-section" aria-label="Patient summary">
+          <div class="patient-summary-card">
+            <div class="summary-grid">
+              <div class="summary-item main-info">
+                <div class="patient-photo-large">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Eleanor Vance">
+                </div>
+                <div class="patient-details">
+                  <h2>Eleanor Vance</h2>
+                  <div class="patient-meta">
+                    <span><i class="fas fa-id-card"></i> MR-784-5921</span>
+                    <span><i class="fas fa-birthday-cake"></i> DOB: 05/12/1978</span>
+                    <span><i class="fas fa-calendar"></i> Last visit: 02/28/2026</span>
+                  </div>
+                </div>
+              </div>
+              <div class="summary-item provider-info">
+                <div class="info-tag">
+                  <i class="fas fa-user-md"></i>
+                  <div>
+                    <span class="label">Primary Physician</span>
+                    <span class="value">Dr. Sarah Chen, MD</span>
+                  </div>
+                </div>
+                <div class="info-tag">
+                  <i class="fas fa-shield-alt"></i>
+                  <div>
+                    <span class="label">Insurance</span>
+                    <span class="value">Blue Cross Blue Shield · PPO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- === HEALTH SNAPSHOT & QUICK ACTIONS GRID === -->
+        <div class="dashboard-grid two-column">
+          
+          <!-- LEFT COLUMN: HEALTH SNAPSHOT -->
+          <section class="dashboard-section" aria-label="Health snapshot">
+            <div class="section-header">
+              <h3>Health Snapshot</h3>
+              <a href="#" class="section-link">View all vitals</a>
+            </div>
+            <div class="health-snapshot-card">
+              
+              <!-- Blood Pressure -->
+              <div class="metric-item">
+                <div class="metric-icon">
+                  <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="metric-content">
+                  <span class="metric-label">Blood Pressure</span>
+                  <span class="metric-value">118/76</span>
+                  <span class="metric-status normal">Normal</span>
+                </div>
+                <div class="metric-trend">
+                  <i class="fas fa-arrow-down"></i>
+                  <span>-2 from last visit</span>
+                </div>
+              </div>
+              
+              <!-- Heart Rate -->
+              <div class="metric-item">
+                <div class="metric-icon">
+                  <i class="fas fa-heart"></i>
+                </div>
+                <div class="metric-content">
+                  <span class="metric-label">Heart Rate</span>
+                  <span class="metric-value">72 bpm</span>
+                  <span class="metric-status normal">Normal</span>
+                </div>
+                <div class="metric-trend">
+                  <i class="fas fa-minus"></i>
+                  <span>Stable</span>
+                </div>
+              </div>
+              
+              <!-- Lab Status -->
+              <div class="metric-item">
+                <div class="metric-icon">
+                  <i class="fas fa-flask"></i>
+                </div>
+                <div class="metric-content">
+                  <span class="metric-label">Recent Lab Status</span>
+                  <span class="metric-value">Completed</span>
+                  <span class="metric-status success">3 results ready</span>
+                </div>
+                <div class="metric-action">
+                  <a href="#">Review</a>
+                </div>
+              </div>
+              
+              <!-- Medication Adherence -->
+              <div class="metric-item">
+                <div class="metric-icon">
+                  <i class="fas fa-pills"></i>
+                </div>
+                <div class="metric-content">
+                  <span class="metric-label">Medication Adherence</span>
+                  <span class="metric-value">92%</span>
+                  <span class="metric-status success">On track</span>
+                </div>
+                <div class="metric-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 92%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- RIGHT COLUMN: QUICK ACTIONS -->
+          <section class="dashboard-section" aria-label="Quick actions">
+            <div class="section-header">
+              <h3>Quick Actions</h3>
+              <a href="#" class="section-link">Customize</a>
+            </div>
+            <div class="quick-actions-grid">
+              <a href="#" class="action-card">
+                <i class="fas fa-calendar-plus"></i>
+                <span>Schedule Appointment</span>
+              </a>
+              <a href="#" class="action-card">
+                <i class="fas fa-file-medical-alt"></i>
+                <span>View Test Results</span>
+              </a>
+              <a href="#" class="action-card">
+                <i class="fas fa-prescription"></i>
+                <span>Request Refill</span>
+              </a>
+              <a href="#" class="action-card">
+                <i class="fas fa-credit-card"></i>
+                <span>Pay Outstanding Balance</span>
+              </a>
+              <a href="#" class="action-card">
+                <i class="fas fa-comment-medical"></i>
+                <span>Message Care Team</span>
+              </a>
+              <a href="#" class="action-card">
+                <i class="fas fa-download"></i>
+                <span>Download Medical Records</span>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- === APPOINTMENTS MODULE === -->
+        <section class="dashboard-section" id="appointments-module" aria-label="Appointments">
+          <div class="section-header">
+            <div class="header-left">
+              <h3>Upcoming Appointments</h3>
+              <div class="view-options">
+                <button class="view-btn active">List</button>
+                <button class="view-btn">Calendar</button>
+              </div>
+            </div>
+            <a href="#" class="section-link">Schedule new</a>
+          </div>
+          
+          <div class="appointments-table-container">
+            <table class="appointments-table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Physician</th>
+                  <th>Department</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mar 16, 2026 · 2:00 PM</td>
+                  <td>Dr. Sarah Chen</td>
+                  <td>Cardiology</td>
+                  <td>Main Campus, Suite 400</td>
+                  <td><span class="status-badge confirmed">Confirmed</span></td>
+                  <td>
+                    <button class="action-btn">Reschedule</button>
+                    <button class="action-btn text">Cancel</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Apr 2, 2026 · 10:30 AM</td>
+                  <td>Dr. Michael Roberts</td>
+                  <td>Neurology</td>
+                  <td>Virtual Visit</td>
+                  <td><span class="status-badge pending">Pending</span></td>
+                  <td>
+                    <button class="action-btn">Reschedule</button>
+                    <button class="action-btn text">Cancel</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="past-appointments-link">
+            <a href="#">View past appointments →</a>
+          </div>
+        </section>
+
+        <!-- === MEDICAL RECORDS MODULE – TABBED INTERFACE === -->
+        <section class="dashboard-section" id="medical-records-module" aria-label="Medical records">
+          <div class="section-header">
+            <h3>Medical Records</h3>
+            <div class="header-actions">
+              <button class="btn-download-all">
+                <i class="fas fa-download"></i> Download all
+              </button>
+            </div>
+          </div>
+          
+          <div class="tabbed-container">
+            <div class="tabs-header">
+              <button class="tab-btn active" data-tab="visit-notes">Visit Notes</button>
+              <button class="tab-btn" data-tab="diagnoses">Diagnoses</button>
+              <button class="tab-btn" data-tab="vaccinations">Vaccination History</button>
+              <button class="tab-btn" data-tab="imaging">Imaging Reports</button>
+              <button class="tab-btn" data-tab="documents">Downloadable Documents</button>
+            </div>
+            
+            <!-- Tab 1: Visit Notes -->
+            <div class="tab-pane active" id="visit-notes">
+              <div class="records-list">
+                <div class="record-item">
+                  <div class="record-icon"><i class="fas fa-file-alt"></i></div>
+                  <div class="record-details">
+                    <h4>Annual Physical Examination</h4>
+                    <p>Dr. Sarah Chen · Feb 28, 2026</p>
+                  </div>
+                  <button class="btn-icon" aria-label="Download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+                <div class="record-item">
+                  <div class="record-icon"><i class="fas fa-file-alt"></i></div>
+                  <div class="record-details">
+                    <h4>Cardiology Follow-up</h4>
+                    <p>Dr. Sarah Chen · Jan 15, 2026</p>
+                  </div>
+                  <button class="btn-icon" aria-label="Download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+                <div class="record-item">
+                  <div class="record-icon"><i class="fas fa-file-alt"></i></div>
+                  <div class="record-details">
+                    <h4>Pre-operative Consultation</h4>
+                    <p>Dr. Michael Roberts · Dec 4, 2025</p>
+                  </div>
+                  <button class="btn-icon" aria-label="Download">
+                    <i class="fas fa-download"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tab 2: Diagnoses (simplified) -->
+            <div class="tab-pane" id="diagnoses">
+              <div class="records-list">
+                <div class="record-item">
+                  <div class="record-icon"><i class="fas fa-stethoscope"></i></div>
+                  <div class="record-details">
+                    <h4>Hypertension, Stage 1 (I10)</h4>
+                    <p>Diagnosed: Oct 12, 2022 · Active</p>
+                  </div>
+                </div>
+                <div class="record-item">
+                  <div class="record-icon"><i class="fas fa-stethoscope"></i></div>
+                  <div class="record-details">
+                    <h4>Hyperlipidemia (E78.5)</h4>
+                    <p>Diagnosed: Mar 4, 2023 · Active</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Additional tabs hidden for brevity; same pattern -->
+          </div>
+        </section>
+
+        <!-- === LAB RESULTS – ENTERPRISE TABLE === -->
+        <section class="dashboard-section" id="lab-results-module" aria-label="Lab results">
+          <div class="section-header">
+            <h3>Recent Lab Results</h3>
+            <a href="#" class="section-link">View all</a>
+          </div>
+          
+          <div class="lab-table-container">
+            <table class="lab-table">
+              <thead>
+                <tr>
+                  <th>Test Name</th>
+                  <th>Ordered By</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Result</th>
+                  <th>Reference Range</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Complete Blood Count (CBC)</strong></td>
+                  <td>Dr. Sarah Chen</td>
+                  <td>Mar 1, 2026</td>
+                  <td><span class="status-badge final">Final</span></td>
+                  <td class="result-normal">WBC 6.2</td>
+                  <td>4.0-11.0</td>
+                  <td><button class="btn-text"><i class="fas fa-download"></i> PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Lipid Panel</strong></td>
+                  <td>Dr. Sarah Chen</td>
+                  <td>Mar 1, 2026</td>
+                  <td><span class="status-badge final">Final</span></td>
+                  <td class="result-abnormal">LDL 142</td>
+                  <td>&lt;100 mg/dL</td>
+                  <td><button class="btn-text"><i class="fas fa-download"></i> PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Hemoglobin A1c</strong></td>
+                  <td>Dr. Sarah Chen</td>
+                  <td>Feb 28, 2026</td>
+                  <td><span class="status-badge final">Final</span></td>
+                  <td class="result-normal">5.4%</td>
+                  <td>&lt;5.7%</td>
+                  <td><button class="btn-text"><i class="fas fa-download"></i> PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Thyroid Panel</strong></td>
+                  <td>Dr. Sarah Chen</td>
+                  <td>Feb 28, 2026</td>
+                  <td><span class="status-badge pending">Pending</span></td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- === PRESCRIPTION MANAGEMENT === -->
+        <section class="dashboard-section" id="prescriptions-module" aria-label="Prescriptions">
+          <div class="section-header">
+            <h3>Active Medications</h3>
+            <a href="#" class="section-link">Request refill</a>
+          </div>
+          
+          <div class="prescriptions-grid">
+            <div class="prescription-card">
+              <div class="prescription-header">
+                <i class="fas fa-prescription-bottle"></i>
+                <div>
+                  <h4>Lisinopril</h4>
+                  <span class="dosage">10 mg · Once daily</span>
+                </div>
+              </div>
+              <div class="prescription-details">
+                <p><span>Prescribed by:</span> Dr. Sarah Chen</p>
+                <p><span>Expires:</span> May 15, 2026</p>
+              </div>
+              <div class="prescription-footer">
+                <span class="refill-badge active">2 refills remaining</span>
+                <button class="btn-refill">Request refill</button>
+              </div>
+            </div>
+            
+            <div class="prescription-card">
+              <div class="prescription-header">
+                <i class="fas fa-prescription-bottle"></i>
+                <div>
+                  <h4>Atorvastatin</h4>
+                  <span class="dosage">20 mg · Once daily</span>
+                </div>
+              </div>
+              <div class="prescription-details">
+                <p><span>Prescribed by:</span> Dr. Sarah Chen</p>
+                <p><span>Expires:</span> Apr 22, 2026</p>
+              </div>
+              <div class="prescription-footer">
+                <span class="refill-badge low">1 refill remaining</span>
+                <button class="btn-refill">Request refill</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- === BILLING & INSURANCE === -->
+        <section class="dashboard-section" id="billing-module" aria-label="Billing and insurance">
+          <div class="dashboard-grid two-column">
+            <!-- Billing Summary -->
+            <div class="billing-summary-card">
+              <div class="card-header">
+                <h4>Outstanding Balance</h4>
+                <i class="fas fa-shield-alt secure-icon" title="Secure payment"></i>
+              </div>
+              <div class="balance-amount">$247.50</div>
+              <p class="due-date">Due by: April 15, 2026</p>
+              <div class="billing-actions">
+                <button class="btn-primary">Pay now</button>
+                <button class="btn-secondary">Download invoice</button>
+              </div>
+              <div class="recent-transactions">
+                <h5>Recent transactions</h5>
+                <div class="transaction-item">
+                  <span>Mar 1, 2026</span>
+                  <span>Cardiology consult</span>
+                  <span class="credit">-$35.00</span>
+                </div>
+                <div class="transaction-item">
+                  <span>Feb 15, 2026</span>
+                  <span>Lab work</span>
+                  <span class="credit">-$125.00</span>
+                </div>
+                <div class="transaction-item">
+                  <span>Feb 1, 2026</span>
+                  <span>Payment received</span>
+                  <span class="payment">+$200.00</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Insurance Info -->
+            <div class="insurance-info-card">
+              <div class="card-header">
+                <h4>Insurance</h4>
+                <i class="fas fa-check-circle verified-icon" title="Verified"></i>
+              </div>
+              <div class="insurance-provider">
+                <h5>Blue Cross Blue Shield</h5>
+                <p>PPO · Group #784-221</p>
+                <p>Member ID: BCB-8754-221A</p>
+              </div>
+              <div class="coverage-details">
+                <div class="coverage-item">
+                  <span>Coverage effective</span>
+                  <strong>Jan 1, 2026</strong>
+                </div>
+                <div class="coverage-item">
+                  <span>Annual deductible</span>
+                  <strong>$1,500 / $500 met</strong>
+                </div>
+                <div class="coverage-item">
+                  <span>Out-of-pocket max</span>
+                  <strong>$3,000</strong>
+                </div>
+              </div>
+              <a href="#" class="link">View benefits summary</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- === SECURE MESSAGING SYSTEM === -->
+        <section class="dashboard-section" id="messages-module" aria-label="Secure messages">
+          <div class="section-header">
+            <h3>Secure Messages</h3>
+            <a href="#" class="section-link">New message</a>
+          </div>
+          
+          <div class="message-thread-container">
+            <div class="message-thread">
+              <div class="message-item incoming">
+                <div class="message-avatar">
+                  <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Dr. Chen">
+                </div>
+                <div class="message-content">
+                  <div class="message-header">
+                    <span class="sender">Dr. Sarah Chen</span>
+                    <span class="timestamp">Today, 9:42 AM</span>
+                  </div>
+                  <p>Your recent lab results are in. Everything looks good, but I'd like to discuss your LDL cholesterol. Please schedule a follow-up at your convenience.</p>
+                </div>
+              </div>
+              
+              <div class="message-item outgoing">
+                <div class="message-avatar">
+                  <span>EV</span>
+                </div>
+                <div class="message-content">
+                  <div class="message-header">
+                    <span class="sender">You</span>
+                    <span class="timestamp">Today, 10:15 AM</span>
+                  </div>
+                  <p>Thank you, Dr. Chen. I've scheduled an appointment for next Tuesday.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="message-compose">
+              <div class="message-input-area">
+                <textarea placeholder="Write a secure message..." rows="1"></textarea>
+                <div class="compose-actions">
+                  <button class="btn-attach" aria-label="Attach file">
+                    <i class="fas fa-paperclip"></i>
+                  </button>
+                  <button class="btn-send">
+                    <i class="fas fa-paper-plane"></i> Send
+                  </button>
+                </div>
+              </div>
+              <p class="encryption-note">
+                <i class="fas fa-lock"></i> End-to-end encrypted · HIPAA compliant
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- === DOCUMENT MANAGEMENT === -->
+        <section class="dashboard-section" id="documents-module" aria-label="Document center">
+          <div class="section-header">
+            <h3>Document Center</h3>
+            <button class="btn-upload">
+              <i class="fas fa-cloud-upload-alt"></i> Upload document
+            </button>
+          </div>
+          
+          <div class="documents-grid">
+            <div class="document-category">
+              <h4>Uploaded Documents</h4>
+              <div class="document-list">
+                <div class="document-item">
+                  <i class="fas fa-file-pdf"></i>
+                  <div class="document-info">
+                    <span class="doc-name">Insurance Card_Front.pdf</span>
+                    <span class="doc-meta">Uploaded Feb 1, 2026 · 245 KB</span>
+                  </div>
+                  <button class="btn-icon"><i class="fas fa-download"></i></button>
+                </div>
+                <div class="document-item">
+                  <i class="fas fa-file-pdf"></i>
+                  <div class="document-info">
+                    <span class="doc-name">Living Will_Executed.pdf</span>
+                    <span class="doc-meta">Uploaded Jan 15, 2026 · 1.2 MB</span>
+                  </div>
+                  <button class="btn-icon"><i class="fas fa-download"></i></button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="document-category">
+              <h4>Forms & Consents</h4>
+              <div class="document-list">
+                <div class="document-item">
+                  <i class="fas fa-file-signature"></i>
+                  <div class="document-info">
+                    <span class="doc-name">HIPAA Acknowledgement</span>
+                    <span class="doc-meta">Signed Jan 1, 2026</span>
+                  </div>
+                  <button class="btn-icon"><i class="fas fa-download"></i></button>
+                </div>
+                <div class="document-item">
+                  <i class="fas fa-file-signature"></i>
+                  <div class="document-info">
+                    <span class="doc-name">Advance Directive</span>
+                    <span class="doc-meta">Signed Jan 15, 2026</span>
+                  </div>
+                  <button class="btn-icon"><i class="fas fa-download"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- === SESSION TIMEOUT NOTICE (PLACEHOLDER) === -->
+        <div class="session-notice" id="sessionNotice" style="display: none;">
+          <i class="fas fa-hourglass-half"></i>
+          <span>Your session will expire in 5 minutes due to inactivity.</span>
+          <button class="btn-stay-signed-in">Stay signed in</button>
+        </div>
+
+      </div> <!-- end dashboard-content -->
+    </main> <!-- end main-content -->
+  </div> <!-- end portal-container -->
+
+  <!-- === LOGOUT CONFIRMATION MODAL === -->
+  <div class="modal-overlay" id="logoutModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Sign out of Patient Portal?</h3>
+        <button class="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to securely sign out. Any unsaved changes will be lost.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel">Cancel</button>
+        <button class="btn-logout">Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="./JAVASCRIPT/patient-portal.js"></script>
+</body>
+</html>
